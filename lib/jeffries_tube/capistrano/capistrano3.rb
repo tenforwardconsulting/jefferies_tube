@@ -1,4 +1,3 @@
-require 'pry'
 namespace :rails do
   desc "Open the rails console on each of the remote servers"
   task :console do
