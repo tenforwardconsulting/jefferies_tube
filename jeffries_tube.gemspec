@@ -7,9 +7,9 @@ Gem::Specification.new do |spec|
   spec.name          = "jeffries_tube"
   spec.version       = JeffriesTube::VERSION
   spec.authors       = ["Brian Samson"]
-  spec.email         = ["brian@briansamson.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.email         = ["brian@tenforwardconsulting.com"]
+  spec.summary       = %q{Ten Forward Consulting useful tools.}
+  spec.description   = %q{cap rails:console}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -20,6 +20,4 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.5"
   spec.add_development_dependency "rake"
-
-  spec.add_runtime_dependency "rails", ">=3.0"
 end
