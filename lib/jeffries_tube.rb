@@ -1,5 +1,5 @@
-require "jeffries_tube/version"
+require 'jeffries_tube/version'
+require 'jeffries_tube/engine'
 
 module JeffriesTube
-  # Your code goes here...
 end
