@@ -30,6 +30,16 @@ Open database console
 cap beta rails:dbconsole
 ```
 
+Open log
+```
+cap beta rails:log
+```
+
+Specify log file (if you're running a server in a differently named environment)
+```
+LOG=production cap beta rails:log
+```
+
 ### Sass
 
 To get compass reset and box-sizing border-box to all elements
