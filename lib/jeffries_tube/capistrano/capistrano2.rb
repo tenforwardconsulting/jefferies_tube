@@ -9,6 +9,12 @@ Capistrano::Configuration.instance(:must_exist).load do
     task :dbconsole, :roles => :app do
       run_interactively "RAILS_ENV=#{rails_env} bundle exec rails dbconsole"
     end
+
+    desc "Open the rails log"
+    task :log , :roles =>  :app do
+      rails_env = ENV['LOG'] if ENV['LOG'].present?
+      run_interactively "tail -f log/#{rails_env}.log"
+    end
   end
 
   def run_interactively(command, server=nil)
