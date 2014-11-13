@@ -15,6 +15,14 @@ namespace :rails do
     end
   end
 
+  desc "Open the rails log"
+  task :log do
+    on roles(:app), primary: true do |host, user|
+      rails_env = ENV['LOG'] || fetch(:stage)
+      run_interactively "tail -f log/#{rails_env}.log"
+    end
+  end
+
   def run_interactively(command)
     puts "ssh #{host.user}@#{host} -p #{host.port} -t 'cd #{deploy_to}/current; #{command}'"
     exec "ssh #{host.user}@#{host} -p #{host.port} -t 'cd #{deploy_to}/current; #{command}'"

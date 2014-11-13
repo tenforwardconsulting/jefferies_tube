@@ -18,7 +18,37 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Capistrano
+
+Open rails console
+```
+cap beta rails:console
+```
+
+Open database console
+```
+cap beta rails:dbconsole
+```
+
+Open log
+```
+cap beta rails:log
+```
+
+Specify log file (if you're running a server in a differently named environment)
+```
+LOG=production cap beta rails:log
+```
+
+### Sass
+
+To get compass reset and box-sizing border-box to all elements
+
+```
+app/assets/stylesheets/application.sass
+
+@import jeffries_tube
+```
 
 ## Contributing
 
