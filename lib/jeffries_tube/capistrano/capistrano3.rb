@@ -24,7 +24,8 @@ namespace :rails do
   end
 
   def run_interactively(command)
-    puts "ssh #{host.user}@#{host} -p #{host.port} -t 'cd #{deploy_to}/current; #{command}'"
-    exec "ssh #{host.user}@#{host} -p #{host.port} -t 'cd #{deploy_to}/current; #{command}'"
+    port = host.port || 22
+    puts "ssh #{host.user}@#{host} -p #{port} -t 'cd #{deploy_to}/current; #{command}'"
+    exec "ssh #{host.user}@#{host} -p #{port} -t 'cd #{deploy_to}/current; #{command}'"
   end
 end
