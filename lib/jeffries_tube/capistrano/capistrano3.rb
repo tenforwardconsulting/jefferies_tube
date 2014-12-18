@@ -29,3 +29,15 @@ namespace :rails do
     exec "ssh #{host.user}@#{host} -p #{port} -t 'cd #{deploy_to}/current; #{command}'"
   end
 end
+
+namespace :db do
+  desc "Capture a database snapshot"
+  task :backup do
+    on roles(:db), primary: true do |host|
+      within release_path do
+        execute :rake, "db:backup", "RAILS_ENV=#{fetch(:stage)}"
+      end
+    end
+
+  end
+end
