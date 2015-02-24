@@ -1,3 +1,3 @@
-module JeffriesTube
+module JefferiesTube
   VERSION = "0.0.2"
 end

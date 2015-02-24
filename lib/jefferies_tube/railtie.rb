@@ -1,8 +1,8 @@
-require 'jeffries_tube'
+require 'jefferies_tube'
 require 'rails'
-module JeffriesTube
+module JefferiesTube
   class Railtie < ::Rails::Railtie
-    railtie_name :jeffries_tube
+    railtie_name :jefferies_tube
 
     rake_tasks do
       load "tasks/db.rake"

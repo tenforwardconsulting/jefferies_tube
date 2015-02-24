@@ -1,4 +1,4 @@
-class JeffriesTube::AccessToken
+class JefferiesTube::AccessToken
   def self.create(hash)
     verifier.generate(hash.to_yaml)
   end

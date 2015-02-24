@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'jeffries_tube/version'
+require 'jefferies_tube/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "jeffries_tube"
-  spec.version       = JeffriesTube::VERSION
+  spec.name          = "jefferies_tube"
+  spec.version       = JefferiesTube::VERSION
   spec.authors       = ["Brian Samson"]
   spec.email         = ["brian@tenforwardconsulting.com"]
   spec.summary       = %q{Ten Forward Consulting useful tools.}
