@@ -7,5 +7,9 @@ module JeffriesTube
     rake_tasks do
       load "tasks/db.rake"
     end
+
+    console do
+      ActiveRecord::Base.connection
+    end
   end
 end
