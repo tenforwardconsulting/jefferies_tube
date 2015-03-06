@@ -34,10 +34,15 @@ namespace :db do
   desc "Capture a database snapshot"
   task :backup do
     on roles(:db), primary: true do |host|
-      within release_path do
+      unless fetch(:linked_dirs).include?("db/backups")
+        warn "'db/backups' is not in your capistrano linked_dirs; you should add it yo"
+      end
+      within File.join(release_path, 'db', 'backups') do
         execute :rake, "db:backup", "RAILS_ENV=#{fetch(:stage)}"
       end
     end
 
   end
 end
+
+before :deploy, 'db:backup'
