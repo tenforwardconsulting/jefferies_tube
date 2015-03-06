@@ -47,7 +47,7 @@ To get compass reset and box-sizing border-box to all elements
 ```
 app/assets/stylesheets/application.sass
 
-@import jeffries_tube
+@import jefferies_tube
 ```
 
 ## Contributing
