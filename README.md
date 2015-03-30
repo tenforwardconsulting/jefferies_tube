@@ -18,6 +18,15 @@ Or install it yourself as:
 
 ## Usage
 
+### Whenever
+Jefferies tube has backup functionality. To use it, add something like this to your
+schedule.rb
+```
+every 1.day, at: '12am' do
+  rake 'db:backup'
+end
+```
+
 ### Capistrano
 
 Open rails console
