@@ -30,6 +30,13 @@ namespace :rails do
   end
 end
 
+desc "Open an ssh session"
+task :ssh do
+  on roles(:app), primary: true do |host|
+    run_interactively '/bin/bash'
+  end
+end
+
 namespace :db do
   desc "Capture a database snapshot"
   task :backup do
