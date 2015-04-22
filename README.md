@@ -40,6 +40,11 @@ end
 
 ### Capistrano
 
+In your Capfile
+```
+require 'jeffries_tube/capistrano'
+```
+
 Open rails console
 ```
 cap beta rails:console
@@ -58,6 +63,11 @@ cap beta rails:log
 Specify log file (if you're running a server in a differently named environment)
 ```
 LOG=production cap beta rails:log
+```
+
+Make a database backup
+```
+cap beta db:backup
 ```
 
 ### Sass
