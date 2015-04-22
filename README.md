@@ -40,7 +40,7 @@ end
 
 ### Capistrano
 
-In your Capfile
+Add this line *last* in your Capfile (it depends on rails/migrations and cap/deploy)
 ```
 require 'jeffries_tube/capistrano'
 ```

@@ -45,10 +45,11 @@ namespace :db do
         warn "'db/backups' is not in your capistrano linked_dirs; you should add it yo"
       end
       within release_path do
-        rake "db:backup"
+        execute :rake, "db:backup", "RAILS_ENV=#{fetch(:stage)}"
       end
     end
   end
 end
 
-before :deploy, 'db:backup'
+before 'deploy:migrate', 'db:backup'
+
