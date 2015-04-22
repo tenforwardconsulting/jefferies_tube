@@ -44,11 +44,10 @@ namespace :db do
       unless fetch(:linked_dirs).include?("db/backups")
         warn "'db/backups' is not in your capistrano linked_dirs; you should add it yo"
       end
-      within File.join(release_path, 'db', 'backups') do
-        execute :rake, "db:backup", "RAILS_ENV=#{fetch(:stage)}"
+      within release_path do
+        rake "db:backup"
       end
     end
-
   end
 end
 
