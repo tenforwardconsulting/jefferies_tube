@@ -18,6 +18,17 @@ Or install it yourself as:
 
 ## Usage
 
+### Rake
+Capture a database backup
+```
+rake db:backup
+```
+
+Load msot recent database backup
+```
+rake db:load
+```
+
 ### Whenever
 Jefferies tube has backup functionality. To use it, add something like this to your
 schedule.rb
