@@ -2,10 +2,11 @@ require_relative '../jefferies_tube/database_backup'
 require_relative '../jefferies_tube/postgresql_backup_adapter'
 
 namespace :db do
-  desc 'Load most recent database backup'
-  task :load do
+  desc 'restore a backup [FILE=path/to/backup rake db:load]'
+  task :restore do
     # Only supports Postgresql for now
-    DatabaseBackup.new(PostgresqlBackupAdapter.new).restore_most_recent
+    file = ENV['FILE'] || "db/backups/latest.dump"
+    DatabaseBackup.new(PostgresqlBackupAdapter.new).restore(file)
   end
 
   desc 'Capture a database backup'
@@ -13,4 +14,5 @@ namespace :db do
     # Only supports Postgresql for now
     DatabaseBackup.new(PostgresqlBackupAdapter.new).create
   end
+
 end

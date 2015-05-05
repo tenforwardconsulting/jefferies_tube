@@ -5,7 +5,7 @@ class PostgresqlBackupAdapter
     --file #{file}"
   end
 
-  def restore_most_recent(file)
+  def restore(file)
     echo_run "#{password_option} pg_restore --verbose --clean --no-acl --no-owner \
     #{host_option} #{username_option} -d #{database} \
     #{file}"

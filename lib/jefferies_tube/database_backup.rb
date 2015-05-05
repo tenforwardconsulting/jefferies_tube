@@ -15,8 +15,12 @@ class DatabaseBackup
     @latest_backup_file
   end
 
+  def restore(path)
+    @database_backup_adapter.restore path
+  end
+
   def restore_most_recent
-    @database_backup_adapter.restore_most_recent symlink_file
+    @database_backup_adapter.restore symlink_file
   end
 
   def symlink_file

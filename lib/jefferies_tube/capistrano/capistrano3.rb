@@ -53,7 +53,7 @@ namespace :db do
   desc "Fetch the latest database backup"
   task :fetch do
     on roles(:db), primary: true do |host|
-      download! "#{deploy_to}/shared/db/backups/latest.dump"
+      download! "#{deploy_to}/shared/db/backups/latest.dump", "db/backups/latest-#{fetch(:stage)}.dump"
     end
   end
 end
