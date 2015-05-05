@@ -42,7 +42,7 @@ class DatabaseBackup
   end
 
   def create_symlink_to_new_backup
-    sh "ln -s #{@latest_backup_file} #{symlink_file}"
+    sh "ln -sf #{@latest_backup_file} #{symlink_file}"
   end
 
   def delete_oldest_backup

@@ -49,6 +49,13 @@ namespace :db do
       end
     end
   end
+
+  desc "Fetch the latest database backup"
+  task :fetch do
+    on roles(:db), primary: true do |host|
+      download! "#{deploy_to}/shared/db/backups/latest.dump"
+    end
+  end
 end
 
 before 'deploy:migrate', 'db:backup'
