@@ -7,12 +7,19 @@ class DatabaseBackup
   end
 
   def create
+    FileUtils.mkdir_p backup_path
     @latest_backup_file = create_backup
     remove_symlink_to_old_backup
     create_symlink_to_new_backup
     delete_oldest_backup
     compress_old_backups
     @latest_backup_file
+  end
+
+  def create_rotated(frequency)
+    @rotate_frequency = frequency
+    create
+    cleanup
   end
 
   def restore(path)
@@ -29,6 +36,17 @@ class DatabaseBackup
 
   def backups
     Dir.glob(File.join(backup_path, '*'))
+  end
+
+  def cleanup
+    # hourly - keep for 24 hours
+    sh "find #{storage_path}/backup.hourly/ -mmin +1440 -exec rm -rv {} \\;"
+    # daily - keep for 14 days
+    sh "find #{storage_path}/backup.daily/ -mtime +14 -exec rm -rv {} \\;"
+    # weekly - keep for 60 days
+    sh "find #{storage_path}/backup.weekly/ -mtime +60 -exec rm -rv {} \\;"
+    # monthly - keep for 300 days
+    sh "find #{storage_path}/backup.monthly/ -mtime +300 -exec rm -rv {} \\;"
   end
 
   private
@@ -66,7 +84,31 @@ class DatabaseBackup
   end
 
   def backup_path
-    File.join(root_dir, BACKUP_DIR).tap &FileUtils.method(:mkdir_p)
+    if @rotate_frequency
+      rotated_backup_path(@rotate_frequency)
+    else
+      storage_path
+    end
+  end
+
+  def storage_path
+    File.join(root_dir, BACKUP_DIR)
+  end
+
+  def rotated_backup_path(frequency = :daily)
+    storage = File.join(root_dir, BACKUP_DIR)
+    now = Time.now
+    if now.day == 1
+      storage = File.join(storage, 'backup.monthly')
+    elsif now.wday == 0
+      storage = File.join(storage, 'backup.weekly')
+    elsif frequency == :daily || now.hour == 0
+      storage = File.join(storage, 'backup.daily')
+    elsif frequency == :hourly
+      storage = File.join(storage, 'backup.hourly')
+    end
+
+    storage
   end
 
   def old_backups

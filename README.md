@@ -70,6 +70,23 @@ Make a database backup
 cap beta db:backup
 ```
 
+### Whenever
+
+If you're using whenever and you want to add hourly backups, simply require jefferies_tube in your schedule.rb:
+
+    # schedule.rb
+    every :hour do
+      rake 'db:backup:hourly'
+    end
+
+Or for daily backups:
+
+    #schedule.rb
+    every :day do
+      rake 'db:backup:daily'
+    end
+
+
 ### Sass
 
 To get compass reset and box-sizing border-box to all elements

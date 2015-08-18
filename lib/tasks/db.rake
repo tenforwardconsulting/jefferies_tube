@@ -15,4 +15,13 @@ namespace :db do
     DatabaseBackup.new(PostgresqlBackupAdapter.new).create
   end
 
+  namespace :backup do
+    task :daily do
+      DatabaseBackup.new(PostgresqlBackupAdapter.new).create_rotated(:daily)
+    end
+
+    task :hourly do
+      DatabaseBackup.new(PostgresqlBackupAdapter.new).create_rotated(:hourly)
+    end
+  end
 end
