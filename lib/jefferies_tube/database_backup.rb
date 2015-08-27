@@ -112,7 +112,7 @@ class DatabaseBackup
   end
 
   def old_backups
-    backups.lazy.sort.reject { |r|
+    backups.sort.reject { |r|
       r == @latest_backup_file || r == symlink_file
     }
   end
