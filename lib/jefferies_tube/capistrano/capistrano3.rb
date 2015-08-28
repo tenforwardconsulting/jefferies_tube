@@ -61,8 +61,10 @@ end
 
 namespace :deploy do
   task :ensure_tag do
-    `git describe --exact-match HEAD`
-    if $? != 0
+    tagname = `git describe --exact-match HEAD`.chomp
+    if $? == 0
+      puts "Code is tagged as `#{tagname}`, proceeding with deployment"
+    else
       abort "You need to tag the source before you can deploy production"
     end
   end
