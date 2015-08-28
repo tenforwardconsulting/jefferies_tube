@@ -60,11 +60,17 @@ namespace :db do
 end
 
 namespace :deploy do
-  task :ensure_git_tag do
+  task :ensure_tag do
     `git describe --exact-match HEAD`
     if $? != 0
       abort "You need to tag the source before you can deploy production"
     end
+  end
+  task :create_tag do
+    now = Time.now
+    tagname = "#{fetch(:stage)}-#{now.strftime('%Y-%m-%d-%H%M')}"
+    me = `whoami`.chomp
+    %x(git tag -a #{tagname} -m "Automated deploy tag by #{me}" && git push origin #{tagname})
   end
 end
 

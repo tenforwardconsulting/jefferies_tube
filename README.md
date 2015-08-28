@@ -72,8 +72,15 @@ cap beta db:backup
 
 To enforce that you tagged the code before deploying, inside config/deploy/<stage>.rb:
 ```
-before 'deploy', 'deploy:ensure_git_tag'
+before 'deploy', 'deploy:ensure_tag'
 ```
+
+
+To automatically tag the code that is about to be released (lazy programmer solution) inside config/deploy/<stage>.rb:
+```
+before 'deploy', 'deploy:create_tag'
+```
+
 
 ### Whenever
 
