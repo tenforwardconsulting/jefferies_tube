@@ -53,7 +53,17 @@ namespace :db do
   desc "Fetch the latest database backup"
   task :fetch do
     on roles(:db), primary: true do |host|
+      FileUtils.mkdir_p 'db/backups'
       download! "#{deploy_to}/shared/db/backups/latest.dump", "db/backups/latest-#{fetch(:stage)}.dump"
+    end
+  end
+end
+
+namespace :deploy do
+  task :ensure_git_tag do
+    `git describe --exact-match HEAD`
+    if $? != 0
+      abort "You need to tag the source before you can deploy production"
     end
   end
 end

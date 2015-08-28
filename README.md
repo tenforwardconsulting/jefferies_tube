@@ -70,6 +70,11 @@ Make a database backup
 cap beta db:backup
 ```
 
+To enforce that you tagged the code before deploying, inside config/deploy/<stage>.rb:
+```
+before 'deploy', 'deploy:ensure_git_tag'
+```
+
 ### Whenever
 
 If you're using whenever and you want to add hourly backups, simply require jefferies_tube in your schedule.rb:
