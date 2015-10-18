@@ -57,6 +57,18 @@ namespace :db do
       download! "#{deploy_to}/shared/db/backups/latest.dump", "db/backups/latest-#{fetch(:stage)}.dump"
     end
   end
+
+  desc "restore the database from a local file FILE=./local/file_path"
+  task :restore do
+    on roles(:app), primary: true do |host|
+      within release_path do
+        remote_path = "#{release_path}/db/backups/#{File.basename(ENV["FILE"])}"
+        upload! ENV["FILE"], remote_path
+        execute :rake, "db:restore", "RAILS_ENV=#{fetch(:stage)}", "FILE=#{remote_path}"
+      end
+    end
+
+  end
 end
 
 namespace :deploy do
