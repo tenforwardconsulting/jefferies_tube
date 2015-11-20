@@ -2,7 +2,7 @@ namespace :rails do
   desc "Open the rails console on each of the remote servers"
   task :console do
     on roles(:app), primary: true do |host, user|
-      rails_env = fetch(:stage)
+      rails_env = fetch(:rails_env)
       run_interactively "RAILS_ENV=#{rails_env} bundle exec rails console"
     end
   end
@@ -10,7 +10,7 @@ namespace :rails do
   desc "Open the rails dbconsole on each of the remote servers"
   task :dbconsole do
     on roles(:db), primary: true do |host|
-      rails_env = fetch(:stage)
+      rails_env = fetch(:rails_env)
       run_interactively "RAILS_ENV=#{rails_env} bundle exec rails dbconsole"
     end
   end
@@ -18,7 +18,7 @@ namespace :rails do
   desc "Open the rails log"
   task :log do
     on roles(:app), primary: true do |host, user|
-      rails_env = ENV['LOG'] || fetch(:stage)
+      rails_env = ENV['LOG'] || fetch(:rails_env)
       run_interactively "tail -f log/#{rails_env}.log"
     end
   end
@@ -45,7 +45,7 @@ namespace :db do
         warn "'db/backups' is not in your capistrano linked_dirs; you should add it yo"
       end
       within release_path do
-        execute :rake, "db:backup", "RAILS_ENV=#{fetch(:stage)}"
+        execute :rake, "db:backup", "RAILS_ENV=#{fetch(:rails_env)}"
       end
     end
   end
@@ -64,7 +64,7 @@ namespace :db do
       within release_path do
         remote_path = "#{release_path}/db/backups/#{File.basename(ENV["FILE"])}"
         upload! ENV["FILE"], remote_path
-        execute :rake, "db:restore", "RAILS_ENV=#{fetch(:stage)}", "FILE=#{remote_path}"
+        execute :rake, "db:restore", "RAILS_ENV=#{fetch(:rails_env)}", "FILE=#{remote_path}"
       end
     end
 
