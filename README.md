@@ -18,6 +18,16 @@ Or install it yourself as:
 
 ## Usage
 
+### 404 Handling
+
+Jefferies Tube by default installs a catchall route that will render 404 for you and supress the rollbar error.  This also allows you to create super easy custom error pages.
+
+Simple put a template in the parent app in `app/views/errors/404.haml` (or html or erb, etc) and it will be rendered instead of the default Jefferies tube error.
+
+### 500 handling
+
+in progress -- not sure if this is super useful.
+
 ### Rake
 Capture a database backup
 ```
