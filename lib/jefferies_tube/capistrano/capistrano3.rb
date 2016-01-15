@@ -67,7 +67,6 @@ namespace :db do
         execute :rake, "db:restore", "RAILS_ENV=#{fetch(:rails_env)}", "FILE=#{remote_path}"
       end
     end
-
   end
 end
 
@@ -80,6 +79,7 @@ namespace :deploy do
       abort "You need to tag the source before you can deploy production"
     end
   end
+
   task :create_tag do
     now = Time.now
     tagname = "#{fetch(:stage)}-#{now.strftime('%Y-%m-%d-%H%M')}"

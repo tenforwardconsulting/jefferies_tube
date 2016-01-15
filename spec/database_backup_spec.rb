@@ -54,6 +54,9 @@ RSpec.describe DatabaseBackup do
     end
   end
 
+  describe '#created_rotated' do
+  end
+
   describe '#restore' do
     it 'restores using the database adapter' do
       expect(database_backup_adapter).to receive(:restore).with 'db/backups/foobar.dump'
