@@ -3,18 +3,19 @@ require_relative '../lib/jefferies_tube/database_backup'
 require_relative '../lib/jefferies_tube/test_backup_adapter'
 
 RSpec.describe DatabaseBackup do
+  let(:database_backup_adapter) { TestBackupAdapter.new }
+  let(:database_backup) { DatabaseBackup.new database_backup_adapter, max_num_of_backups: 2 }
+  let(:root_dir) { Dir.mktmpdir }
+
+  before :each do
+    allow(database_backup).to receive(:root_dir).and_return root_dir
+  end
+
+  after :each do
+    FileUtils.remove_entry root_dir
+  end
+
   describe '#create' do
-    let(:database_backup) { DatabaseBackup.new TestBackupAdapter.new, max_num_of_backups: 2 }
-    let(:root_dir) { Dir.mktmpdir }
-
-    before :each do
-      allow(database_backup).to receive(:root_dir).and_return root_dir
-    end
-
-    after :each do
-      FileUtils.remove_entry root_dir
-    end
-
     it 'creates the backup directory' do
       backup_dir = File.join(root_dir, DatabaseBackup::BACKUP_DIR)
       expect {
@@ -53,7 +54,17 @@ RSpec.describe DatabaseBackup do
     end
   end
 
+  describe '#restore' do
+    it 'restores using the database adapter' do
+      expect(database_backup_adapter).to receive(:restore).with 'db/backups/foobar.dump'
+      database_backup.restore 'db/backups/foobar.dump'
+    end
+  end
+
   describe '#restore_most_recent' do
-    skip
+    it 'restores latest.dump' do
+      expect(database_backup_adapter).to receive(:restore).with File.join(root_dir, 'db/backups/latest.dump')
+      database_backup.restore_most_recent
+    end
   end
 end

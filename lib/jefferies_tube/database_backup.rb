@@ -1,7 +1,12 @@
 class DatabaseBackup
   BACKUP_DIR = 'db/backups'
 
-  attr_reader :max_num_of_backups
+  module Frequency
+    DAILY = :daily
+    HOURLY = :hourly
+  end
+
+  attr_accessor :max_num_of_backups
 
   def initialize(database_backup_adapter, max_num_of_backups: 10)
     @database_backup_adapter = database_backup_adapter
@@ -98,19 +103,18 @@ class DatabaseBackup
     File.join(root_dir, BACKUP_DIR)
   end
 
-  def rotated_backup_path(frequency = :daily)
+  def rotated_backup_path(frequency = Frequency::DAILY)
     storage = File.join(root_dir, BACKUP_DIR)
     now = Time.now
     if now.day == 1
       storage = File.join(storage, 'backup.monthly')
     elsif now.wday == 0
       storage = File.join(storage, 'backup.weekly')
-    elsif frequency == :daily || now.hour == 0
+    elsif frequency == Frequency::DAILY || now.hour == 0
       storage = File.join(storage, 'backup.daily')
-    elsif frequency == :hourly
+    elsif frequency == Frequency::HOURLY
       storage = File.join(storage, 'backup.hourly')
     end
-
     storage
   end
 

@@ -17,11 +17,11 @@ namespace :db do
 
   namespace :backup do
     task :daily do
-      DatabaseBackup.new(PostgresqlBackupAdapter.new).create_rotated(:daily)
+      DatabaseBackup.new(PostgresqlBackupAdapter.new).create_rotated(DatabaseBackup::Frequency::DAILY)
     end
 
     task :hourly do
-      DatabaseBackup.new(PostgresqlBackupAdapter.new).create_rotated(:hourly)
+      DatabaseBackup.new(PostgresqlBackupAdapter.new).create_rotated(DatabaseBackup::Frequency::HOURLY)
     end
   end
 end

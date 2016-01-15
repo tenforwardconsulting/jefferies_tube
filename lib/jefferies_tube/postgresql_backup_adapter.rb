@@ -1,4 +1,6 @@
-class PostgresqlBackupAdapter
+require_relative 'database_backup_adapter'
+
+class PostgresqlBackupAdapter < DatabaseBackupAdapter
   def create_backup(file)
     `#{password_option} pg_dump --verbose -Fc \
     #{host_option} #{username_option} --file #{file} \
