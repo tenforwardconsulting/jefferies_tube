@@ -18,6 +18,12 @@ Or install it yourself as:
 
 ## Usage
 
+### Generators
+
+* `rails g jefferies_tube:new_user_mailer`
+
+Creates `app/mailers/new_user_mailer.rb` and associated files. Mailer takes a user and sends a them a password reset link. Useful when you want to include other content for your new users that shouldn't be in the Devise password reset email.
+
 ### 404 Handling
 
 Jefferies Tube by default installs a catchall route that will render 404 for you and supress the rollbar error.  This also allows you to create super easy custom error pages.
