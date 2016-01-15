@@ -2,7 +2,7 @@ require_relative '../jefferies_tube/database_backup'
 require_relative '../jefferies_tube/postgresql_backup_adapter'
 
 namespace :db do
-  desc 'restore a backup [FILE=path/to/backup rake db:load]'
+  desc 'restore a backup. Defaults to "db/backups/latest.dump". options: FILE=path/to/backup.dump'
   task :restore do
     # Only supports Postgresql for now
     file = ENV['FILE'] || "db/backups/latest.dump"

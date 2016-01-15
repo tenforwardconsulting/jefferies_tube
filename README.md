@@ -1,6 +1,6 @@
-# JeffriesTube
+# JefferiesTube
 
-TODO: Write a gem description
+A collection of useful tools used at Ten Forward Consulting
 
 ## Installation
 
@@ -18,35 +18,27 @@ Or install it yourself as:
 
 ## Usage
 
-### 404 Handling
+### Error Handling
 
-Jefferies Tube by default installs a catchall route that will render 404 for you and supress the rollbar error.  This also allows you to create super easy custom error pages.
+#### 404 Handling
+
+JefferiesTube by default installs a catchall route that will render 404 for you and supress the rollbar error.  This also allows you to create super easy custom error pages.
 
 Simple put a template in the parent app in `app/views/errors/404.haml` (or html or erb, etc) and it will be rendered instead of the default Jefferies tube error.
 
-### 500 handling
+#### 500 handling
 
-in progress -- not sure if this is super useful.
+In progress -- not sure if this is super useful.
 
 ### Rake
+
+* `rake db:backup`
+
 Capture a database backup
-```
-rake db:backup
-```
 
-Load msot recent database backup
-```
-rake db:load
-```
+* `rake db:restore`
 
-### Whenever
-Jefferies tube has backup functionality. To use it, add something like this to your
-schedule.rb
-```
-every 1.day, at: '12am' do
-  rake 'db:backup'
-end
-```
+Load most recent database backup. Can specify location of backup with `FILE`.
 
 ### Capistrano
 
@@ -94,20 +86,29 @@ before 'deploy', 'deploy:create_tag'
 
 ### Whenever
 
-If you're using whenever and you want to add hourly backups, simply require jefferies_tube in your schedule.rb:
+JefferiesTube has backup functionality. To use it, add something like this to your `schedule.rb`:
 
-    # schedule.rb
-    every :hour do
-      rake 'db:backup:hourly'
-    end
+```ruby
+every 1.day, at: '12am' do
+  rake 'db:backup'
+end
+```
+
+For hourly backups:
+
+```ruby
+every :hour do
+  rake 'db:backup:hourly'
+end
+```
 
 Or for daily backups:
 
-    #schedule.rb
-    every :day do
-      rake 'db:backup:daily'
-    end
-
+```ruby
+every :day do
+  rake 'db:backup:daily'
+end
+```
 
 ### Sass
 
