@@ -1,4 +1,4 @@
-# JeffriesTube
+# JefferiesTube
 
 TODO: Write a gem description
 
@@ -6,7 +6,7 @@ TODO: Write a gem description
 
 Add this line to your application's Gemfile:
 
-    gem 'jeffries_tube'
+    gem 'jefferies_tube'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install jeffries_tube
+    $ gem install jefferies_tube
 
 ## Usage
 
@@ -52,7 +52,7 @@ end
 
 Add this line *last* in your Capfile (it depends on rails/migrations and cap/deploy)
 ```
-require 'jeffries_tube/capistrano'
+require 'jefferies_tube/capistrano'
 ```
 
 Open rails console
@@ -121,7 +121,7 @@ app/assets/stylesheets/application.sass
 
 ## Contributing
 
-1. Fork it ( http://github.com/<my-github-username>/jeffries_tube/fork )
+1. Fork it ( http://github.com/<my-github-username>/jefferies_tube/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
