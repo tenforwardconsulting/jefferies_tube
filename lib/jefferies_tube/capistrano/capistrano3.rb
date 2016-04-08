@@ -37,9 +37,12 @@ task :ssh do
   end
 end
 
+
+
 namespace :db do
   desc "Capture a database snapshot"
   task :backup do
+
     on roles(:db), primary: true do |host|
       unless fetch(:linked_dirs).include?("db/backups")
         warn "'db/backups' is not in your capistrano linked_dirs; you should add it yo"
@@ -86,7 +89,15 @@ namespace :deploy do
     me = `whoami`.chomp
     %x(git tag -a #{tagname} -m "Automated deploy tag by #{me}" && git push origin #{tagname})
   end
+  task :backup_database do
+
+    if fetch(:skip_deploy_backups)
+      puts "Skipping database backup because :skip_deploy_backups is set"
+    else
+      invoke "db:backup"
+    end
+  end
 end
 
-before 'deploy:migrate', 'db:backup'
+before 'deploy:migrate', 'deploy:backup_database'
 
