@@ -1,4 +1,6 @@
 class JefferiesTube::ErrorsController < ApplicationController
+  before_filter :disable_pundit
+
   def render_404
     render_error_page 404
   end
@@ -15,6 +17,12 @@ class JefferiesTube::ErrorsController < ApplicationController
       render template: "/errors/#{code}", layout: layout, status: code
     rescue ActionView::MissingTemplate
       render "render_#{code}".to_sym, layout: layout, status: code
+    end
+  end
+
+  def disable_pundit
+    if defined?(Pundit)
+      skip_authorization
     end
   end
 end
