@@ -91,6 +91,12 @@ To automatically tag the code that is about to be released (lazy programmer solu
 before 'deploy', 'deploy:create_tag'
 ```
 
+Enable/Disable Maintence Mode
+
+```
+cap production maintenance:enable MESSAGE="Site is down for maintenance, should be back shortly."
+cap production maintenance:disable
+```
 
 ### Whenever
 
