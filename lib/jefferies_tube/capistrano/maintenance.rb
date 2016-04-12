@@ -3,7 +3,7 @@ namespace :maintenance do
   task :enable do
     on roles(:web) do |host, user|
       within current_path do
-        message = ENV["MESSAGE"] || "We should return shortly."
+        message = ENV["MESSAGE"] || ""
         upload! StringIO.new(message), "#{current_path}/tmp/maintenance.txt"
         invoke 'deploy:restart'
       end

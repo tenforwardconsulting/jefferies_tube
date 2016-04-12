@@ -19,7 +19,7 @@ namespace :db do
     end
   end
 
-  desc "restore the database from a local file FILE=./local/file_path"
+  desc "Restore the database from a local file FILE=./local/file_path"
   task :restore do
     on roles(:app), primary: true do |host|
       within release_path do

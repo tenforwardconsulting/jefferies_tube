@@ -11,9 +11,9 @@ module JefferiesTube
       end
 
       def call(env)
-        #data = File.read(file)
-        data = "Sorry, this site is down for maintenance"
-        [ 503, { "Content-Type" => "text/plain", "Content-Length" => data.bytesize.to_s }, [data] ]
+        message = File.read('./tmp/maintenance.txt')
+        message = "Sorry, this site is down for maintenance." if message.empty?
+        [ 503, { "Content-Type" => "text/plain", "Content-Length" => message.bytesize.to_s }, [message] ]
       end
     end
   end

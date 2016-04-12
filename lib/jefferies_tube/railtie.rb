@@ -27,13 +27,5 @@ module JefferiesTube
       end
     end
 
-    private
-    def initialize_404_catchall
-
-    end
-
-    def install_maintenance_middleware
-
-    end
   end
 end
