@@ -1,6 +1,11 @@
-# require jeffries_tube/capistrano in your Capfile and we'll figure out the version
-if defined?(Capistrano::VERSION) && Capistrano::VERSION.start_with?("3")
-  require 'jefferies_tube/capistrano/capistrano3'
-else
-  require 'jefferies_tube/capistrano/capistrano2'
+if !defined?(Capistrano::VERSION)
+  raise "Capistrano is not present."
+elsif !Capistrano::VERSION.start_with?("3")
+  raise "Capistrano support is limited to version 3"
 end
+
+require 'jefferies_tube/capistrano/db'
+require 'jefferies_tube/capistrano/deploy'
+require 'jefferies_tube/capistrano/maintenance'
+require 'jefferies_tube/capistrano/rails'
+require 'jefferies_tube/capistrano/ssh'
