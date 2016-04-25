@@ -1,6 +1,6 @@
 namespace :deploy do
   task :ensure_tag do
-    tagname = `git describe --exact-match HEAD`.chomp
+    tagname = `git describe --exact-match HEAD --tags`.chomp
     if $? == 0
       puts "Code is tagged as `#{tagname}`, proceeding with deployment"
     else
