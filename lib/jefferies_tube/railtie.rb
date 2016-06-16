@@ -29,7 +29,7 @@ module JefferiesTube
 
 
     initializer "fix spring + figaro" do |config|
-      if defined? Spring && File.exists?("config/application.yml")
+      if defined?(Spring) && File.exists?("config/application.yml")
           Spring.watch "config/application.yml"
       end
     end
