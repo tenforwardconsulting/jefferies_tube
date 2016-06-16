@@ -27,5 +27,12 @@ module JefferiesTube
       end
     end
 
+
+    initializer "fix spring + figaro" do |config|
+      if defined? Spring && File.exists?("config/application.yml")
+          Spring.watch "config/application.yml"
+      end
+    end
+
   end
 end
