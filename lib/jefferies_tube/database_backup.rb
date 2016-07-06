@@ -1,9 +1,17 @@
 class DatabaseBackup
   BACKUP_DIR = 'db/backups'
-  MAX_NUM_OF_BACKUPS = 10
 
-  def initialize(database_backup_adapter)
+  module Frequency
+    DAILY = :daily
+    HOURLY = :hourly
+  end
+
+  attr_accessor :max_num_of_backups
+
+  def initialize(database_backup_adapter, max_num_of_backups: 10)
     @database_backup_adapter = database_backup_adapter
+    @max_num_of_backups = max_num_of_backups
+    @rotate_frequency = nil
   end
 
   def create
@@ -60,7 +68,7 @@ class DatabaseBackup
   end
 
   def remove_symlink_to_old_backup
-    File.delete(symlink_file) if File.exists?(symlink_file)
+    File.delete(symlink_file) if File.exist?(symlink_file)
   end
 
   def create_symlink_to_new_backup
@@ -68,7 +76,7 @@ class DatabaseBackup
   end
 
   def delete_oldest_backup
-    File.delete(old_backups.first) if old_backups.count >= MAX_NUM_OF_BACKUPS
+    File.delete(old_backups.first) if old_backups.count >= max_num_of_backups
   end
 
   def compress_old_backups
@@ -95,19 +103,18 @@ class DatabaseBackup
     File.join(root_dir, BACKUP_DIR)
   end
 
-  def rotated_backup_path(frequency = :daily)
+  def rotated_backup_path(frequency = Frequency::DAILY)
     storage = File.join(root_dir, BACKUP_DIR)
     now = Time.now
     if now.day == 1
       storage = File.join(storage, 'backup.monthly')
     elsif now.wday == 0
       storage = File.join(storage, 'backup.weekly')
-    elsif frequency == :daily || now.hour == 0
+    elsif frequency == Frequency::DAILY || now.hour == 0
       storage = File.join(storage, 'backup.daily')
-    elsif frequency == :hourly
+    elsif frequency == Frequency::HOURLY
       storage = File.join(storage, 'backup.hourly')
     end
-
     storage
   end
 
