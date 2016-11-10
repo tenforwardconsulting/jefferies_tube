@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Brian Samson"]
   spec.email         = ["brian@tenforwardconsulting.com"]
   spec.summary       = %q{Ten Forward Consulting useful tools.}
-  spec.description   = %q{cap rails:console}
-  spec.homepage      = ""
+  spec.description   = "Useful tools for Rails."
+  spec.homepage      = "https://github.com/tenforwardconsulting/jefferies_tube/"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -23,5 +23,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec", '~> 3.0'
+
   spec.add_dependency 'compass-rails'
 end
