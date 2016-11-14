@@ -9,15 +9,17 @@ class JefferiesTube::ErrorsController < ApplicationController
 
   def additional_information
     # TODO not implemented yet
-    render text: "Thanks!", layout: app_layout
+    render text: "Thanks!", layout: has_app_layout?
   end
 
   private
   def render_error_page(code)
+    request.format = :html unless [:html, :json, :xml].include? request.format.to_sym
     begin
-      render template: "/errors/#{code}", layout: app_layout, status: code
+      render template: "/errors/#{code}", layout: has_app_layout?, status: code
     rescue ActionView::MissingTemplate
-      render "render_#{code}".to_sym, layout: app_layout, status: code
+      # Failsafe
+      render template: "/errors/#{code}", layout: html_layout, status: code, formats: [:html]
     end
   end
 
@@ -33,13 +35,21 @@ class JefferiesTube::ErrorsController < ApplicationController
     end
   end
 
-  def app_layout
+  def has_app_layout?
     if Gem::Version.new(Rails.version) >= Gem::Version.new("5")
-      !!self.send(:_layout, [params[:format]])
+      !!self.send(:_layout, [request.format.to_sym])
     else
       # boolean based on if there is a default layout for the current mime type
       !!self.send(:_layout)
     end
   end
 
+  def html_layout
+    if Gem::Version.new(Rails.version) >= Gem::Version.new("5")
+      self.send(:_layout, ["html"]).virtual_path
+    else
+      # boolean based on if there is a default layout for the current mime type
+      "application"
+    end
+  end
 end
