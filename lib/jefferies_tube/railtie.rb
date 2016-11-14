@@ -1,4 +1,5 @@
 require 'jefferies_tube'
+require 'jefferies_tube/error_handling'
 require 'rails'
 
 module JefferiesTube
@@ -16,7 +17,15 @@ module JefferiesTube
         ::Rails.application.routes.recognize_path("/jefferies_tube_404_test_route_test_supertest")
       rescue ActionController::RoutingError
         ::Rails.application.routes.append do
+          post "/jefferies_tube_add_error_information", to: "jefferies_tube/errors#additional_information"
           match "*a" => "jefferies_tube/errors#render_404", via: [:get, :post, :put, :options]
+
+        end
+        ApplicationController.class_eval do
+          # include JefferiesTube::ErrorHandling
+          # rescue_from ActiveRecord::RecordNotFound do
+          #   render text: "Notta founda", status: 404
+          # end
         end
       end
     end
