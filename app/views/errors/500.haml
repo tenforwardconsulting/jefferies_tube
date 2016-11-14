@@ -1,0 +1,22 @@
+:css
+  #jt-error { margin: 32px auto; padding: 32px; }
+  #jt-error label { display: block; }
+  #jt-error input, textarea { font-size: 16px; margin-bottom: 16px; width: 300px; display: block; }
+
+#jt-error
+  %h1 Server Error
+
+  %p Sorry!  Something went wrong with our server. Our development team has been notified.
+  %p Error Code: 500 (#{@exception.class.name})
+
+  / = form_tag "/jefferies_tube_add_error_information", method: "post" do
+  /   %p Want to help us fix this?  Tell us what you were doing and we'll try to fix it asap
+  /   %label
+  /     Comments:
+  /     = text_area_tag :comments, nil, rows: 3
+  /   %label
+  /     Your email address (optional):
+  /     = text_field_tag :email
+  /   = submit_tag "Submit"
+
+
