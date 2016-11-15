@@ -22,16 +22,12 @@ module JefferiesTube
     private
 
     def render_error_page(code)
-      # boolean based on if there is a default layout for the current mime type
-      layout = !!self.send(:_layout)
-      #append_view_path File.expand_path(File.dirname(__FILE__), "../../app/views")
-      render template: "/errors/#{code}", layout: layout, status: code
-
-    end
-
-    def disable_pundit
-      if defined?(Pundit)
-        skip_authorization
+      request.format = :html unless [:html, :json, :xml].include? request.format.to_sym
+      begin
+        render template: "/errors/#{code}", layout: has_app_layout?, status: code
+      rescue ActionView::MissingTemplate
+        # Failsafe
+        render template: "/errors/#{code}", layout: html_layout, status: code, formats: [:html]
       end
     end
 
@@ -41,9 +37,27 @@ module JefferiesTube
       end
     end
 
-    def log_500
-      if defined?(Rollbar)
-        Rollbar.exception(@exception)
+    def disable_pundit
+      if defined?(Pundit)
+        skip_authorization
+      end
+    end
+
+    def has_app_layout?
+      if Gem::Version.new(::Rails.version) >= Gem::Version.new("5")
+        !!self.send(:_layout, [request.format.to_sym])
+      else
+        # boolean based on if there is a default layout for the current mime type
+        !!self.send(:_layout)
+      end
+    end
+
+    def html_layout
+      if Gem::Version.new(Rails.version) >= Gem::Version.new("5")
+        self.send(:_layout, ["html"]).virtual_path
+      else
+        # boolean based on if there is a default layout for the current mime type
+        "application"
       end
     end
 

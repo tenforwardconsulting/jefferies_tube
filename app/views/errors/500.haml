@@ -9,14 +9,16 @@
   %p Sorry!  Something went wrong with our server. Our development team has been notified.
   %p Error Code: 500 (#{@exception.class.name})
 
-  / = form_tag "/jefferies_tube_add_error_information", method: "post" do
-  /   %p Want to help us fix this?  Tell us what you were doing and we'll try to fix it asap
-  /   %label
-  /     Comments:
-  /     = text_area_tag :comments, nil, rows: 3
-  /   %label
-  /     Your email address (optional):
-  /     = text_field_tag :email
-  /   = submit_tag "Submit"
+  - if @rollbar
+    = form_tag "/jefferies_tube_add_error_information", method: "post" do
+      = hidden_field_tag :rollbar_uuid, @rollbar[:uuid]
+      %p Want to help us fix this?  Tell us what you were doing and we'll try to fix it asap
+      %label
+        Comments:
+        = text_area_tag :comments, nil, rows: 3
+      %label
+        Your email address (optional):
+        = text_field_tag :email
+      = submit_tag "Submit"
 
 

@@ -7,9 +7,20 @@ class JefferiesTube::ErrorsController < ApplicationController
     render_error_page 404
   end
 
+  def fail
+    raise "Barf"
+  end
+
   def additional_information
-    # TODO not implemented yet
-    render text: "Thanks!", layout: has_app_layout?
+    if defined?(Rollbar)
+      uri = URI.parse("https://rollbar.com/instance/uuid/?uuid=#{params[:rollbar_uuid]}")
+      response = Net::HTTP.get_response(uri)
+      if response.code == "302" && response["Location"] =~ /items\/(\d+)\/occurrences\/(\d+)\//
+        item_id, occurrence_id = $1, $2
+        ErrorMailer.new_comments(comments: params[:comments], url: response["Location"]).deliver_now!
+      end
+    end
+    render html: "<p>Thanks for the feedback, and we apologize for the inconvenience.</p>", layout: has_app_layout?
   end
 
   private

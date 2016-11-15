@@ -22,7 +22,7 @@ module JefferiesTube
 
         end
         ApplicationController.class_eval do
-          # include JefferiesTube::ErrorHandling
+          include JefferiesTube::ErrorHandling
           # rescue_from ActiveRecord::RecordNotFound do
           #   render text: "Notta founda", status: 404
           # end
