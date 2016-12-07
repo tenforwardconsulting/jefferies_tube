@@ -15,11 +15,15 @@ class JefferiesTube::ErrorsController < ApplicationController
   private
   def render_error_page(code)
     request.format = :html unless [:html, :json, :xml].include? request.format.to_sym
-    begin
-      render template: "/errors/#{code}", layout: has_app_layout?, status: code
-    rescue ActionView::MissingTemplate
-      # Failsafe
-      render template: "/errors/#{code}", layout: html_layout, status: code, formats: [:html]
+    respond_to do |format|
+      format.any do
+        begin
+          render template: "/errors/#{code}", layout: has_app_layout?, status: code
+        rescue ActionView::MissingTemplate
+          # Failsafe
+          render template: "/errors/#{code}", layout: html_layout, status: code, formats: [:html]
+        end
+      end
     end
   end
 
