@@ -1,6 +1,6 @@
 class JefferiesTube::ErrorsController < ApplicationController
-  before_filter :disable_pundit
-  skip_before_filter :verify_authenticity_token
+  before_action :disable_pundit
+  skip_before_action :verify_authenticity_token
 
   def render_404
     log_404
