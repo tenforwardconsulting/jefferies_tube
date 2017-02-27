@@ -19,9 +19,9 @@ class JefferiesTube::ErrorsController < ApplicationController
       format.any do
         begin
           render template: "/errors/#{code}", layout: has_app_layout?, status: code
-        rescue ActionView::MissingTemplate
+        rescue #ActionView::MissingTemplate
           # Failsafe
-          render template: "/errors/#{code}", layout: html_layout, status: code, formats: [:html]
+          render template: "/errors/#{code}", layout: false, status: code
         end
       end
     end
