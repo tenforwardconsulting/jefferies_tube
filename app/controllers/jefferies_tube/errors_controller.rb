@@ -1,6 +1,11 @@
 class JefferiesTube::ErrorsController < ApplicationController
-  before_filter :disable_pundit
-  skip_before_filter :verify_authenticity_token
+  if Rails.version.start_with? "3"
+    before_filter :disable_pundit
+    skip_before_filter :verify_authenticity_token
+  else
+    before_action :disable_pundit
+    skip_before_action :verify_authenticity_token
+  end
 
   def render_404
     log_404
