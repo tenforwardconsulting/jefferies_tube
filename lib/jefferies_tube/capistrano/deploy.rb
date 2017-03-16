@@ -22,6 +22,32 @@ namespace :deploy do
       invoke "db:backup"
     end
   end
+
+  task :scan_gems do
+    require 'bundler/audit/scanner'
+    require 'bundler/audit/database'
+
+    Bundler::Audit::Database.update!
+    scanner = Bundler::Audit::Scanner.new
+    vulnerable = false
+    scanner.scan do |result|
+      vulnerable = true
+      case result
+      when Bundler::Audit::Scanner::InsecureSource
+        print_warning "Insecure Source URI found: #{result.source}"
+      when Bundler::Audit::Scanner::UnpatchedGem
+        puts "#{result.gem} is not secure!"
+      end
+    end
+    if vulnerable && ENV["I_KNOW_GEMS_ARE_INSECURE"].blank?
+      abort """
+      Your Gemfile.lock contains unpatched gems -- refusing to deploy
+      Run `bundle-audit check --update` for full information
+      You can set 'I_KNOW_GEMS_ARE_INSECURE' if you really want to do this anyway
+      """
+    end
+  end
 end
 
 before 'deploy:migrate', 'deploy:backup_database'
+before 'deploy', 'deploy:scan_gems'

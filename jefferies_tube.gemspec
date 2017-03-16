@@ -19,10 +19,11 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "awesome_print"
-  spec.add_development_dependency "bundler", "~> 1.5"
+  spec.add_development_dependency "bundler"
   spec.add_development_dependency "pry"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec", '~> 3.0'
 
+  spec.add_dependency "bundler-audit", '~>0.5.0'
   spec.add_dependency 'compass-rails'
 end
