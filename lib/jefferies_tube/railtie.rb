@@ -28,6 +28,10 @@ module JefferiesTube
       end
     end
 
+    initializer "jefferies_tube.view_helpers" do
+      ActionView::Base.send :include, JefferiesTube::ApplicationHelper
+    end
+
 
     initializer "fix spring + figaro" do |config|
       if defined?(Spring) && File.exists?("config/application.yml")
