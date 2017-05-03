@@ -39,7 +39,7 @@ namespace :deploy do
         puts "#{result.gem} is not secure!"
       end
     end
-    if vulnerable && ENV["I_KNOW_GEMS_ARE_INSECURE"].blank?
+    if vulnerable && ENV["I_KNOW_GEMS_ARE_INSECURE"] == nil
       abort """
       Your Gemfile.lock contains unpatched gems -- refusing to deploy
       Run `bundle-audit check --update` for full information
