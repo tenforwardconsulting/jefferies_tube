@@ -39,5 +39,13 @@ module JefferiesTube
         Spring.watch "config/application.yml"
       end
     end
+
+    initializer "jefferies_tube.ensure_up_to_date" do |config|
+      if ::Rails.env.development?
+        if JefferiesTube::VERSION != JefferiesTube.latest_rubygems_version
+          puts "***** Warning JefferiesTube is not up to date!"
+        end
+      end
+    end
   end
 end

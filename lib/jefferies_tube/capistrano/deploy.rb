@@ -34,7 +34,7 @@ namespace :deploy do
       vulnerable = true
       case result
       when Bundler::Audit::Scanner::InsecureSource
-        print_warning "Insecure Source URI found: #{result.source}"
+        puts "Insecure Source URI found: #{result.source}"
       when Bundler::Audit::Scanner::UnpatchedGem
         puts "#{result.gem} is not secure!"
       end
