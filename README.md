@@ -2,6 +2,8 @@
 
 A collection of useful tools used at Ten Forward Consulting
 
+[![Gem](https://img.shields.io/gem/v/jefferies_tube.svg)](https://rubygems.org/gems/jefferies_tube)
+
 ## Installation
 
 Add this line to your application's Gemfile:
