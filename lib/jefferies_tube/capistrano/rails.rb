@@ -1,7 +1,8 @@
 namespace :rails do
   desc "Open the rails console on each of the remote servers"
   task :console do
-    on roles(:app), primary: true do |host, user|
+    console_roles = [roles(:worker), roles(:app)].find(&:any?)
+    on console_roles, primary: true do |host, user|
       rails_env = fetch(:rails_env)
       run_interactively "RAILS_ENV=#{rails_env} bundle exec rails console"
     end
