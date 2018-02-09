@@ -1,5 +1,5 @@
-task :precompile_and_upload_assets do
-  on roles(:assets_precompiler) do
+task :upload_assets_to_s3 do
+  on roles(fetch(:assets_roles)) do
     within release_path do
       with rails_env: fetch(:rails_env), rails_groups: fetch(:rails_assets_groups) do
         execute :rake, "assets:precompile"
