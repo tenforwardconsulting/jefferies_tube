@@ -17,6 +17,7 @@ module JefferiesTube
       rescue ActionController::RoutingError
         ::Rails.application.routes.append do
           match "*a" => "jefferies_tube/errors#render_404", via: [:get, :post, :put, :options]
+          match "/" => "jefferies_tube/errors#render_404", via: :post
         end
       end
     end
