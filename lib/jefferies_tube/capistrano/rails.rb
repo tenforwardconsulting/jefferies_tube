@@ -20,7 +20,7 @@ namespace :rails do
   task :log do
     on roles(:app), primary: true do |host, user|
       rails_env = ENV['LOG'] || fetch(:rails_env)
-      run_interactively "tail -f log/#{rails_env}.log"
+      run_interactively %Q{tail -f log/#{rails_env}.log | grep --line-buffered --invert "Delayed::Backend::ActiveRecord::Job Load"}
     end
   end
 
