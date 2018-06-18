@@ -4,7 +4,7 @@ This is a [changelog](https://keepachangelog.com/en/0.3.0/).
 
 This project attempts to follow [semantic versioning](https://semver.org/)
 
-## Unreleased
+## 1.0.0 - 2018-06-18
 
 * breaking changes
   * The `upload_assets_to_s3` task's `s3_destination` used to be of the form
