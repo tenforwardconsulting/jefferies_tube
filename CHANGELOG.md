@@ -10,7 +10,7 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## 1.0.1 - 2018-06-19
 
-* big fixes
+* bug fixes
   * Fix bug with webpacker integration when using CDN where packs/manifest.json
     wasn't being copied to other servers.
 
