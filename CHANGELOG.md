@@ -4,6 +4,12 @@ This is a [changelog](https://keepachangelog.com/en/0.3.0/).
 
 This project attempts to follow [semantic versioning](https://semver.org/)
 
+## Unreleased
+
+* big fixes
+  * Fix bug with webpacker integration when using CDN where packs/manifest.json
+    wasn't being copied to other servers.
+
 ## 1.0.0 - 2018-06-18
 
 * breaking changes
