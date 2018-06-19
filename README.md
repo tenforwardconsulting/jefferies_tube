@@ -24,7 +24,7 @@ Or install it yourself as:
 
 #### 404 Handling
 
-JefferiesTube by default installs a catchall route that will render 404 for you and supress the rollbar error.  This also allows you to create super easy custom error pages.
+JefferiesTube by default installs a catchall route that will render 404 for you and supress the rollbar error. This also allows you to create super easy custom error pages.
 
 Simple put a template in the parent app in `app/views/errors/404.haml` (or html or erb, etc) and it will be rendered instead of the default Jefferies tube error.
 
@@ -55,6 +55,8 @@ require 'jefferies_tube/capistrano'
 
 Open ssh session in `current` directory.
 
+##### Rails
+
 * `cap beta rails:console`
 
 Open rails console.
@@ -67,6 +69,8 @@ Open database console.
 
 Open log file. Can specify log file like so: `LOG=foobar cap beta rails:log`
 
+##### Database
+
 * `cap beta db:backup`
 
 Make a database backup.
@@ -78,6 +82,18 @@ Fetches the latest database backup. Useful for getting production data locally.
 * `cap beta db:restore FILE=path/to/backup.dump`
 
 Nuke the server's database with one you give it. Don't do this on production for obvious reasons. Useful for putting a backup fetched from production onto a dev server.
+
+##### Assets
+
+* `cap beta assets:fetch`
+
+Fetch assets from `<deploy_to>/shared/public/system`
+
+* `cap beta assets:s3:fetch`
+
+Fetch assets from the bucket configured in application.yml.
+
+##### Tagging
 
 * `cap beta deploy:ensure_tag`
 
