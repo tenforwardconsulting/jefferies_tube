@@ -19,7 +19,7 @@ task :copy_assets_manifest do
 
   assets_path = release_path.join('public', fetch(:assets_prefix))
   packs_path = release_path.join('public/packs')
-  webpack_enabled = if Dir.exists?(packs_path)
+  webpack_enabled = Dir.exists?(packs_path)
 
   on roles(fetch(:assets_roles)), primary: true do
     manifest_name = capture(:ls, assets_path.join('.sprockets-manifest*')).strip
