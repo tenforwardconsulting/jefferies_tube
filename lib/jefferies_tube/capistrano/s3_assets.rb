@@ -19,20 +19,25 @@ task :copy_assets_manifest do
 
   assets_path = release_path.join('public', fetch(:assets_prefix))
   packs_path = release_path.join('public/packs')
+  webpack_enabled = if Dir.exists?(packs_path)
 
   on roles(fetch(:assets_roles)), primary: true do
     manifest_name = capture(:ls, assets_path.join('.sprockets-manifest*')).strip
     manifest_contents = download! assets_path.join(manifest_name)
-
-    packs_manifest_name = capture(:ls, packs_path.join('manifest.json')).strip
-    packs_manifest_contents = download! packs_path.join(packs_manifest_name)
+    if webpack_enabled
+      packs_manifest_name = capture(:ls, packs_path.join('manifest.json')).strip
+      packs_manifest_contents = download! packs_path.join(packs_manifest_name)
+    end
   end
+
   on roles(:app) do
     execute :rm, '-f', assets_path.join('.sprockets-manifest*')
     upload! StringIO.new(manifest_contents), assets_path.join(manifest_name)
 
-    execute :rm, '-f', packs_path.join('manifest.json')
-    upload! StringIO.new(packs_manifest_contents), packs_path.join(packs_manifest_name)
+    if webpack_enabled
+      execute :rm, '-f', packs_path.join('manifest.json')
+      upload! StringIO.new(packs_manifest_contents), packs_path.join(packs_manifest_name)
+    end
   end
 end
 
