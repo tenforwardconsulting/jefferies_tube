@@ -141,6 +141,20 @@ To get compass reset and box-sizing border-box to all elements:
 @import jefferies_tube
 ```
 
+### Development environment
+
+When developing the apps against your local machine, it is useful to override some of the config settings to get ngrok to work.
+You can create `config/environments/my.development.rb` and put something like the following in it:
+```
+Rails.application.configure do
+  config.middleware.use "SomeLocalThing"
+  config.action_mailer.asset_host = "test.ngrok.io"
+  # Anything else in development.rb that you don't want to commit
+end
+```
+
+If you do this, don't forget to add `my.development.rb` to the gitignore file.
+
 ## Contributing
 
 1. Fork it ( http://github.com/<my-github-username>/jefferies_tube/fork )
