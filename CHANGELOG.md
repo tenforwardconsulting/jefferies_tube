@@ -6,8 +6,17 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+* nada
+
+## 1.0.3 - 2018-08-13
+
 * features
   * Support for my.development.rb
+
+## 1.0.2 - 2018-07-11
+
+* bug fixes
+  * Fix bug with webpacker integration preventing it from being enabled.
 
 ## 1.0.1 - 2018-06-19
 
