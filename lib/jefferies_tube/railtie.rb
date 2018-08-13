@@ -48,5 +48,14 @@ module JefferiesTube
         end
       end
     end
+
+    initializer "load my.development.rb if present" do |config|
+      if ::Rails.env.development?
+        override_file = ::Rails.root.join "config", "environments", "my.development.rb"
+        if File.file? override_file
+          load override_file
+        end
+      end
+    end
   end
 end

@@ -6,7 +6,8 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
-* nada
+* features
+  * Support for my.development.rb
 
 ## 1.0.1 - 2018-06-19
 
