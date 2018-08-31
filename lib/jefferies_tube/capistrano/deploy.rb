@@ -33,11 +33,31 @@ namespace :deploy do
     ignore = fetch(:bundler_audit_ignore, [])
     scanner.scan(ignore: ignore) do |result|
       vulnerable = true
+
+      gem_name = result.gem.name
+
+      begin
+        latest_version = `gem search #{gem_name}`
+          .split("\n")
+          .detect { |g|
+            g.split(' ')[0] == gem_name
+          }
+          .split(' ')[1]
+          .gsub(/[()]/, "")
+      rescue StandardError => e
+        puts "Error reading 'gem search' output: #{e.message}"
+      end
+
       case result
       when Bundler::Audit::Scanner::InsecureSource
         puts "Insecure Source URI found: #{result.source}"
       when Bundler::Audit::Scanner::UnpatchedGem
-        puts "#{result.gem} is not secure!"
+        if latest_version == result.gem.version.to_s
+          vulnerable = false
+          puts "#{result.gem} is not secure but there is no newer version!"
+        else
+          puts "#{result.gem} is not secure and there is a newer version available! (#{latest_version})"
+        end
       end
     end
     if vulnerable && ENV["I_KNOW_GEMS_ARE_INSECURE"] == nil
