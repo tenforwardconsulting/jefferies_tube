@@ -6,7 +6,10 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
-* nada
+* bug fixes
+  * Fix bug where webpack presence was not correct causing the manifest file to
+    not be copied which caused webpack assets to not work (either the new
+    version wouldn't be found or the old version would continue to be used).
 
 ## 1.0.3 - 2018-08-13
 
