@@ -6,7 +6,8 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
-* _nada_
+* features
+  * Add cap task for running arbitrary rake task on server. e.g. `cap dev rails:rake[flipper:synchronize_features]`.
 
 ## 1.0.4 - 2018-10-02
 
