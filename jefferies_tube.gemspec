@@ -24,6 +24,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec", '~> 3.0'
 
-  spec.add_dependency "bundler-audit", '~>0.5.0'
+  spec.add_dependency "bundler-audit", '~> 0.6.1'
   spec.add_dependency 'compass-rails'
 end
