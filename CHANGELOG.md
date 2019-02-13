@@ -6,6 +6,9 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+* enhancements
+  * Require bundler-audit version ~> 0.6.1 in order to support Bundler version >= 2
+
 * features
   * Add cap task for running arbitrary rake task on server. e.g. `cap dev rails:rake[flipper:synchronize_features]`.
 
