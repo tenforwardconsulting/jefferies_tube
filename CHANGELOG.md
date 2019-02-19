@@ -6,6 +6,10 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+* _nada_
+
+## 1.0.5 - 2019-02-19
+
 * enhancements
   * Require bundler-audit version ~> 0.6.1 in order to support Bundler version >= 2
 
