@@ -7,6 +7,31 @@ module JefferiesTube
 
     console do
       ActiveRecord::Base.connection
+      ARGV.push "-r", File.join(File.dirname(__FILE__),"custom_prompts.irbrc.rb")
+      if defined? Pry
+        
+        puts 'Pry loaded'
+        
+        Pry.config.prompt = proc {
+          current_app = ::Rails.application.class.parent_name
+          rails_env = ::Rails.env.downcase
+          color = "\e[0m" #Default to white text on no background
+        
+          # shorten some common long environment names
+          if rails_env == "development"
+            rails_env = "dev"
+            color = "\e[0;37m\e[1;44m" #White on blue
+          elsif rails_env == "test"
+            color = "\e[0;37m\e[1;43m" #White on yellow
+          elsif rails_env == "production"
+            rails_env = "prod"
+            color = "\e[0;37m\e[1;41m" #White on red
+          end 
+        
+          base = "#{color}#{current_app}(#{rails_env})\e[0m"
+          prompt = base + "> "
+        }
+      end
     end
 
     config.after_initialize do |args|
