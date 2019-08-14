@@ -1,5 +1,5 @@
 require 'jefferies_tube/version'
-require 'jefferies_tube/engine'
+require 'jefferies_tube/engine' if defined?(Rails)
 
 module JefferiesTube
   require 'jefferies_tube/railtie' if defined?(Rails)
@@ -20,7 +20,7 @@ module JefferiesTube
 
     def initialize
       @environment = ::Rails.env.downcase || nil
-      @prompt_name = ::Rails.application.class.parent_name
+      @prompt_name = ::Rails.application.class.parent_name || nil
     end
   end
 end
