@@ -6,7 +6,8 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
-* _nada_
+* enhancements
+  * Add colorful IRB prompts based on Rails environment
 
 ## 1.0.5 - 2019-02-19
 
