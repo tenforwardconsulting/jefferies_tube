@@ -155,6 +155,16 @@ end
 
 If you do this, don't forget to add `my.development.rb` to the gitignore file.
 
+### Terminal colors
+Changes the prompt color of your terminal. Shows Development environments in blue, Test in yellow, and Production in a scary red.
+Defaults to using the Rails env and Rails app class name, but configuration can be done in a Rails initializer like:
+```
+JefferiesTube.configure do |config|
+  config.environment = 'production' # If you're using a nonstandard env name but want colors.
+  config.prompt_name = 'ShortName' #For a shorter prompt name if you have a long app
+end
+```
+
 ## Contributing
 
 1. Fork it ( http://github.com/<my-github-username>/jefferies_tube/fork )

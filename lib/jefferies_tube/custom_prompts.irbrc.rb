@@ -1,8 +1,8 @@
-rails_env = Rails.env.downcase
+rails_env = JefferiesTube.configuration.environment
 
 if rails_env
   color = "\e[0m" #Default to white text on no background
-  current_app = Rails.application.class.parent_name
+  current_app = JefferiesTube.configuration.prompt_name
 
   # shorten some common long environment names
   if rails_env == "development"
