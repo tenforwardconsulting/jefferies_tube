@@ -5,10 +5,10 @@ if rails_env
   current_app = JefferiesTube.configuration.prompt_name
 
   # shorten some common long environment names
-  if rails_env == "development"
+  if ["development", "dev"].include? rails_env
     rails_env = "dev"
     color = "\e[0;37m\e[1;44m" #White on blue
-  elsif rails_env == "test"
+  elsif ["test", "qa", "staging"].include? rails_env
     color = "\e[0;37m\e[1;43m" #White on yellow
   elsif rails_env == "production"
     rails_env = "prod"
