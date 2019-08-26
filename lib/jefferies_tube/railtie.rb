@@ -2,11 +2,32 @@ require 'jefferies_tube'
 require 'rails'
 
 module JefferiesTube
+
   class Railtie < ::Rails::Railtie
     railtie_name :jefferies_tube
-
+    
     console do
       ActiveRecord::Base.connection
+      unless defined? Pry
+        ARGV.push "-r", File.join(File.dirname(__FILE__),"custom_prompts.irbrc.rb")
+      end
+      
+      if defined? Pry        
+        Pry.config.prompt = proc {
+          current_app = JefferiesTube.configuration.prompt_name
+          rails_env = JefferiesTube.configuration.environment
+        
+          # shorten some common long environment names
+          if rails_env == "development"
+            rails_env = "dev"
+          elsif rails_env == "production"
+            rails_env = "prod"
+          end 
+        
+          base = "#{current_app}(#{rails_env})"
+          prompt = base + "> "
+        }
+      end
     end
 
     config.after_initialize do |args|
