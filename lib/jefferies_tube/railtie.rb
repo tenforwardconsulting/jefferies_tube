@@ -1,31 +1,20 @@
 require 'jefferies_tube'
+require 'jefferies_tube/console'
 require 'rails'
 
 module JefferiesTube
 
   class Railtie < ::Rails::Railtie
     railtie_name :jefferies_tube
-    
+
     console do
       ActiveRecord::Base.connection
-      unless defined? Pry
-        ARGV.push "-r", File.join(File.dirname(__FILE__),"custom_prompts.irbrc.rb")
-      end
-      
-      if defined? Pry        
+
+      ARGV.push "-r", File.join(File.dirname(__FILE__),"custom_prompts.irbrc.rb")
+
+      if defined? Pry
         Pry.config.prompt = proc {
-          current_app = JefferiesTube.configuration.prompt_name
-          rails_env = JefferiesTube.configuration.environment
-        
-          # shorten some common long environment names
-          if rails_env == "development"
-            rails_env = "dev"
-          elsif rails_env == "production"
-            rails_env = "prod"
-          end 
-        
-          base = "#{current_app}(#{rails_env})"
-          prompt = base + "> "
+          JefferiesTube::Console.prompt
         }
       end
     end
@@ -53,7 +42,6 @@ module JefferiesTube
     initializer "jefferies_tube.view_helpers" do
       ActionView::Base.send :include, JefferiesTube::ApplicationHelper
     end
-
 
     initializer "fix spring + figaro" do |config|
       if defined?(Spring) && File.exists?("config/application.yml")
