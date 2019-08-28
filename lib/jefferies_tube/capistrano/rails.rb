@@ -22,6 +22,24 @@ namespace :rails do
     end
   end
 
+  desc "Open all rails log using multitail"
+  task :allthelogs do
+    commands = []
+    roles(:app).each do |host|
+      filename = ENV['LOG'] || rails_env
+      port = host.port || 22
+      commands << "ssh #{host.user}@#{host} -p #{port} \"tail -f #{deploy_to}/current/log/#{filename}.log\" | grep --line-buffered --invert \"Delayed::Backend::ActiveRecord::Job Load\""
+    end
+
+    command = "multitail"
+    commands.each do |c|
+      command += " -L '#{c}'"
+    end
+
+    puts command
+    exec command
+  end
+
   desc "Run a rake task"
   task :rake, :task_to_run do |_, parameters|
     task_to_run = parameters[:task_to_run]
