@@ -4,7 +4,12 @@ This is a [changelog](https://keepachangelog.com/en/0.3.0/).
 
 This project attempts to follow [semantic versioning](https://semver.org/)
 
-## Unreleased
+## 1.2
+
+* enhancements
+  * Allow passing through bundler-audit ignore with `set :bundler_audit_ignore, ["CVE-1234-5678"]`
+
+## 1.1.1
 
 * enhancements
   * Add colorful IRB prompts based on Rails environment
