@@ -99,6 +99,15 @@ To automatically tag the code that is about to be released (lazy programmer solu
 before 'deploy', 'deploy:create_tag'
 ```
 
+#### Bundler Audit
+
+By default jefferies_tube will raise an error and stop if it detects any vulnerabilities is your installed gems. If you need to deploy anyway even with vulnerabilities you can do `I_KNOW_GEMS_ARE_INSECURE=true cap <environment> deploy`.
+
+To ignore specific CVE's when running bundler-audit, inside `config/deploy.rb`:
+```ruby
+set :bundler_audit_ignore, ["CVE-1234-5678"]
+```
+
 ### Enable/Disable Maintence Mode
 
 ```

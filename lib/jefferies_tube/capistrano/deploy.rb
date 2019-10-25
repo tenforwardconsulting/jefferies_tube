@@ -30,7 +30,8 @@ namespace :deploy do
     Bundler::Audit::Database.update!
     scanner = Bundler::Audit::Scanner.new
     vulnerable = false
-    scanner.scan do |result|
+    ignore = fetch(:bundler_audit_ignore, [])
+    scanner.scan(ignore: ignore) do |result|
       vulnerable = true
       case result
       when Bundler::Audit::Scanner::InsecureSource
