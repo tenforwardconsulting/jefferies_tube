@@ -22,6 +22,9 @@ module JefferiesTube
       if defined?(Rails)
         @environment = ::Rails.env.downcase || nil
         @prompt_name = ::Rails.application.class.parent_name || nil
+      else
+        @environment = "development"
+        @prompt_name = "JefferiesTube"
       end
     end
   end
