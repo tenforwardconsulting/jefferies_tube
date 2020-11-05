@@ -1,6 +1,4 @@
 require_relative '../lib/jefferies_tube'
-require 'rails'
-
 
 RSpec.describe "Configuration" do
   describe 'configuration' do

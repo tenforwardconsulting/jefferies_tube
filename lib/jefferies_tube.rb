@@ -19,8 +19,13 @@ module JefferiesTube
     attr_accessor :prompt_name
 
     def initialize
-      @environment = ::Rails.env.downcase || nil
-      @prompt_name = ::Rails.application.class.parent_name || nil
+      if defined?(Rails)
+        @environment = ::Rails.env.downcase || nil
+        @prompt_name = ::Rails.application.class.parent_name || nil
+      else
+        @environment = "development"
+        @prompt_name = "JefferiesTube"
+      end
     end
   end
 end
