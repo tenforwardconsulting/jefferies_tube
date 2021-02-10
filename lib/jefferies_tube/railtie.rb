@@ -13,9 +13,7 @@ module JefferiesTube
       ARGV.push "-r", File.join(File.dirname(__FILE__),"custom_prompts.irbrc.rb")
 
       if defined? Pry
-        Pry.config.prompt = proc {
-          JefferiesTube::Console.prompt
-        }
+        Pry.prompt = Pry::Prompt.new(:jefferies_tube, '', Array.new(2) { proc { JefferiesTube::Console.prompt } })
       end
     end
 
