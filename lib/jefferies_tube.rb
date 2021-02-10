@@ -21,7 +21,7 @@ module JefferiesTube
     def initialize
       if defined?(Rails)
         @environment = ::Rails.env.downcase || nil
-        @prompt_name = ::Rails.application.class.parent_name || nil
+        @prompt_name = ::Rails.application.class.module_parent_name || nil
       else
         @environment = "development"
         @prompt_name = "JefferiesTube"
