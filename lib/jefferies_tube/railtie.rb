@@ -13,9 +13,7 @@ module JefferiesTube
       ARGV.push "-r", File.join(File.dirname(__FILE__),"custom_prompts.irbrc.rb")
 
       if defined? Pry
-        Pry.config.prompt = proc {
-          JefferiesTube::Console.prompt
-        }
+        Pry.prompt = Pry::Prompt.new(:jefferies_tube, '', Array.new(2) { proc { JefferiesTube::Console.prompt } })
       end
     end
 
@@ -40,7 +38,9 @@ module JefferiesTube
     end
 
     initializer "jefferies_tube.view_helpers" do
-      ActionView::Base.send :include, JefferiesTube::ApplicationHelper
+      ::Rails.application.reloader.to_prepare do
+        ActionView::Base.send :include, JefferiesTube::ApplicationHelper
+      end
     end
 
     initializer "fix spring + figaro" do |config|
