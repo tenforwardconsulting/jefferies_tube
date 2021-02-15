@@ -26,6 +26,8 @@ namespace :deploy do
   task :scan_gems do
     require 'bundler/audit/scanner'
     require 'bundler/audit/database'
+    require 'net/http'
+    require 'json'
 
     Bundler::Audit::Database.update!
     scanner = Bundler::Audit::Scanner.new
@@ -37,15 +39,11 @@ namespace :deploy do
       gem_name = result.gem.name
 
       begin
-        latest_version = `gem search #{gem_name}`
-          .split("\n")
-          .detect { |g|
-            g.split(' ')[0] == gem_name
-          }
-          .split(' ')[1]
-          .gsub(/[()]/, "")
+        url = "https://rubygems.org/api/v1/versions/#{gem_name}/latest.json"
+        response = Net::HTTP.get_response(URI.parse(url))
+        latest_version = JSON.parse(response.body)["version"]
       rescue StandardError => e
-        puts "Error reading 'gem search' output: #{e.message}"
+        puts "Error fetching latest version of gem: #{e.message}"
       end
 
       case result
