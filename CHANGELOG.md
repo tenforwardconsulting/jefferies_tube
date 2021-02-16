@@ -6,6 +6,8 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+## 1.4
+
 * enhancements
   * Rails 6.1 support - fix deprecations and outdated gem dependencies.
 
