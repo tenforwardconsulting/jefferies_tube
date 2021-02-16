@@ -26,6 +26,8 @@ namespace :deploy do
   task :scan_gems do
     require 'bundler/audit/scanner'
     require 'bundler/audit/database'
+    require 'net/http'
+    require 'json'
 
     Bundler::Audit::Database.update!
     scanner = Bundler::Audit::Scanner.new
@@ -33,11 +35,27 @@ namespace :deploy do
     ignore = fetch(:bundler_audit_ignore, [])
     scanner.scan(ignore: ignore) do |result|
       vulnerable = true
+
+      gem_name = result.gem.name
+
+      begin
+        url = "https://rubygems.org/api/v1/versions/#{gem_name}/latest.json"
+        response = Net::HTTP.get_response(URI.parse(url))
+        latest_version = JSON.parse(response.body)["version"]
+      rescue StandardError => e
+        puts "Error fetching latest version of gem: #{e.message}"
+      end
+
       case result
       when Bundler::Audit::Scanner::InsecureSource
         puts "Insecure Source URI found: #{result.source}"
       when Bundler::Audit::Scanner::UnpatchedGem
-        puts "#{result.gem} is not secure!"
+        if latest_version == result.gem.version.to_s
+          vulnerable = false
+          puts "#{result.gem} is not secure but there is no newer version!"
+        else
+          puts "#{result.gem} is not secure and there is a newer version available! (#{latest_version})"
+        end
       end
     end
     if vulnerable && ENV["I_KNOW_GEMS_ARE_INSECURE"] == nil
