@@ -11,6 +11,11 @@ This project attempts to follow [semantic versioning](https://semver.org/)
     version of the insecure dependency available.
   * Rails 6.1 support - fix deprecations and outdated gem dependencies.
 
+## 1.3
+
+* enhancements
+  * Remove `compass-rails` dependency.
+
 ## 1.2
 
 * enhancements
