@@ -4,6 +4,11 @@ This is a [changelog](https://keepachangelog.com/en/0.3.0/).
 
 This project attempts to follow [semantic versioning](https://semver.org/)
 
+## Unreleased
+
+* enhancements
+  * Rails 6.1 support - fix deprecations and outdated gem dependencies.
+
 ## 1.2
 
 * enhancements
