@@ -1,8 +1,14 @@
 # Changelog
 
-This is a [changelog](https://keepachangelog.com/en/0.3.0/).
+This is a [changelog](https://keepachangelog.com/en/1.0.0/).
 
 This project attempts to follow [semantic versioning](https://semver.org/)
+
+## Unreleased
+
+* enhancements
+  * The `deploy:scan_gems` Capistrano task now will not block deployments if there is not a newer
+    version of the insecure dependency available.
 
 ## 1.2
 
