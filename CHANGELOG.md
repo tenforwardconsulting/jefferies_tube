@@ -6,10 +6,15 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+## 1.4
+
 * enhancements
-  * The `deploy:scan_gems` Capistrano task now will not block deployments if there is not a newer
-    version of the insecure dependency available.
   * Rails 6.1 support - fix deprecations and outdated gem dependencies.
+
+## 1.3
+
+* enhancements
+  * Remove `compass-rails` dependency.
 
 ## 1.2
 
