@@ -6,6 +6,11 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+## 1.5
+
+* enhancements
+  * Add rails:allthelogs capistrano command to tail all of the rails logs at once.
+
 ## 1.4
 
 * enhancements
