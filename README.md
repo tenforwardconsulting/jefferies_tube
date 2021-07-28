@@ -67,6 +67,10 @@ Open database console.
 
 Open log file. Can specify log file like so: `LOG=foobar cap beta rails:log`
 
+* `cap beta rails:allthelogs`
+
+Open the logfile for all servers (has the role :app) combined. Can specify log file like so: `LOG=foobar cap beta rails:allthelogs`
+
 * `cap beta db:backup`
 
 Make a database backup.
