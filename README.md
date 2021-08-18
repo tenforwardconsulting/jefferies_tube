@@ -51,47 +51,47 @@ require 'jefferies_tube/capistrano'
 
 #### Tasks
 
-* `cap beta ssh`
+* `cap dev ssh`
 
-Open ssh session in `current` directory.
+rpen ssh session in `current` directory.
 
-* `cap beta rails:console`
+* `cap dev rails:console`
 
 Open rails console.
 
-* `cap beta rails:dbconsole`
+* `cap dev rails:dbconsole`
 
 Open database console.
 
-* `cap beta rails:log`
+* `cap dev rails:log`
 
-Open log file. Can specify log file like so: `LOG=foobar cap beta rails:log`
+Open log file. Can specify log file like so: `LOG=foobar cap dev rails:log`
 
-* `cap beta rails:allthelogs`
+* `cap dev rails:allthelogs`
 
-Open the logfile for all servers (has the role :app) combined. Can specify log file like so: `LOG=foobar cap beta rails:allthelogs`
+Open the logfile for all servers (has the role :app) combined. Can specify log file like so: `LOG=foobar cap dev rails:allthelogs`
 
 * `cap dev rails:rake[task:name]`
 
 Run the given rake task.
 
-* `cap beta db:backup`
+* `cap dev db:backup`
 
 Make a database backup.
 
-* `cap beta db:fetch`
+* `cap dev db:fetch`
 
 Fetches the latest database backup. Useful for getting production data locally.
 
-* `cap beta db:restore FILE=path/to/backup.dump`
+* `cap dev db:restore FILE=path/to/backup.dump`
 
 Nuke the server's database with one you give it. Don't do this on production for obvious reasons. Useful for putting a backup fetched from production onto a dev server.
 
-* `cap beta deploy:ensure_tag`
+* `cap dev deploy:ensure_tag`
 
 Yells at you if there is not a tag for your code.
 
-* `cap beta deploy:create_tag`
+* `cap dev deploy:create_tag`
 
 Creates a tag for your code and pushes it.
 
