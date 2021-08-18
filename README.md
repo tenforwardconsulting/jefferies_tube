@@ -53,7 +53,7 @@ require 'jefferies_tube/capistrano'
 
 * `cap dev ssh`
 
-rpen ssh session in `current` directory.
+Open ssh session in `current` directory.
 
 * `cap dev rails:console`
 
