@@ -71,6 +71,10 @@ Open log file. Can specify log file like so: `LOG=foobar cap beta rails:log`
 
 Open the logfile for all servers (has the role :app) combined. Can specify log file like so: `LOG=foobar cap beta rails:allthelogs`
 
+* `cap dev rails:rake[task:name]`
+
+Run the given rake task.
+
 * `cap beta db:backup`
 
 Make a database backup.
