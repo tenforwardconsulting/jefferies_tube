@@ -24,6 +24,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec", '~> 3.0'
 
-  spec.add_dependency "bundler-audit", '~> 0.7.0'
+  spec.add_dependency "bundler-audit", '~> 0.9.0'
   spec.add_dependency "pry", '~> 0.13'
 end
