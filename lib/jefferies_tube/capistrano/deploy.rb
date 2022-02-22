@@ -34,9 +34,9 @@ namespace :deploy do
     scanner.scan(ignore: ignore) do |result|
       vulnerable = true
       case result
-      when Bundler::Audit::Scanner::InsecureSource
+      when Bundler::Audit::Results::InsecureSource
         puts "Insecure Source URI found: #{result.source}"
-      when Bundler::Audit::Scanner::UnpatchedGem
+      when Bundler::Audit::Results::UnpatchedGem
         puts "#{result.gem} is not secure!"
       end
     end
