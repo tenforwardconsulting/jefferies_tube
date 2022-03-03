@@ -6,6 +6,8 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+## 1.5.3
+  * Minor tweaks to the IRB console when sshing.  Don't use JT IRB locally
 ## 1.5
 
 * enhancements

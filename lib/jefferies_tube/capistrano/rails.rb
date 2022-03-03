@@ -3,7 +3,7 @@ namespace :rails do
   task :console do
     console_roles = [roles(:worker), roles(:app)].find(&:any?)
     on console_roles, primary: true do |host, user|
-      run_interactively "RAILS_ENV=#{rails_env} bundle exec rails console"
+      run_interactively "RAILS_ENV=#{rails_env} JEFFERIES_TUBE_IRB=1 bundle exec rails console"
     end
   end
 
