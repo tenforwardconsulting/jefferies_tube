@@ -20,4 +20,13 @@ class JefferiesTube::Console
       return "#{current_app}"
     end
   end
+
+  def self.pry_prompts
+    [
+      # wait_proc
+      proc { prompt_base + " > " },
+      # incomplete_proc
+      proc { prompt_base + "*> "}
+    ]
+  end
 end
