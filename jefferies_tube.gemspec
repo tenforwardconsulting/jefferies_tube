@@ -26,4 +26,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "bundler-audit", '~> 0.9.0'
   spec.add_dependency "pry", '~> 0.13'
+  spec.add_dependency 'rubocop', '~> 1.26'
+  spec.add_dependency 'simplecov'
 end
