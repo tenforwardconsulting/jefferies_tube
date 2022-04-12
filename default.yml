@@ -1,0 +1,5 @@
+AllCops:
+  DisabledByDefault: true
+  SuggestExtensions: false
+Layout/LineLength:
+  Max: 200

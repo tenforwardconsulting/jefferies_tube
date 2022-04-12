@@ -6,6 +6,8 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+## 1.6.0
+  Default rake task that runs rspec with simlecov and rubocop!
 ## 1.5.4
   Fix a bug in the prompt if Pry is present.
 ## 1.5.3

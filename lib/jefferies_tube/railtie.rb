@@ -1,5 +1,6 @@
 require 'jefferies_tube'
 require 'jefferies_tube/console'
+require 'jefferies_tube/coverage'
 require 'rails'
 
 module JefferiesTube
@@ -66,6 +67,30 @@ module JefferiesTube
           load override_file
         end
       end
+    end
+
+    initializer "create default rubocop config if missing" do |config|
+      default_rubocop = File.join(File.dirname(__FILE__), "config", "rubocop_default.yml")
+      rubocop_path = ::Rails.root.join ".rubocop.yml"
+      if !File.file?(rubocop_path)
+        FileUtils::cp(default_rubocop, rubocop_path)
+      end
+    end
+
+    initializer 'load simplecov for tests' do |config|
+      if ::Rails.env.test?
+        simplecov_config = 'config/simplecov.rb'
+        require_relative simplecov_config
+      end
+    end
+
+    rake_tasks do
+      Rake.application['default'].clear
+      task default: :spec
+      require 'rubocop/rake_task'
+
+      RuboCop::RakeTask.new(:rubocop)
+      task default: :rubocop
     end
   end
 end
