@@ -6,6 +6,8 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+## 1.6.1
+  Silence debugger logs
 ## 1.6.0
   Default rake task that runs rspec with simlecov and rubocop!
 ## 1.5.4

@@ -89,6 +89,13 @@ module JefferiesTube
       task default: :spec
       require 'rubocop/rake_task'
 
+      if Object.const_defined?("DEBUGGER__")
+        DEBUGGER__.class_eval do
+          def self.warn(msg)
+          end
+        end
+      end
+
       RuboCop::RakeTask.new(:rubocop)
       task default: :rubocop
     end
