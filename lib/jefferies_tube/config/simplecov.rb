@@ -3,6 +3,8 @@ SimpleCov.start do
   add_filter '/test/'
   add_filter '/config/'
 
+  formatter SimpleCov::Formatter::HTMLFormatter
+
   add_group 'Controllers' do |src_file|
     src_file.filename.include?('app/controllers') && !src_file.filename.include?('api')
   end
@@ -19,6 +21,7 @@ SimpleCov.start do
   add_group 'Plugins', 'vendor/plugins'
 end
 SimpleCov.at_exit do
+  SimpleCov.result.format!
   ideal_coverage = {
     'Controllers' => 10,
     'API Controllers' => 100,

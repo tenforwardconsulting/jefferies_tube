@@ -6,6 +6,8 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+## 1.6.2
+  Make sure simplecov still generates the HTML report
 ## 1.6.1
   Silence debugger logs
 ## 1.6.0
