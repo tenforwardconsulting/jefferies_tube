@@ -78,7 +78,7 @@ module JefferiesTube
     end
 
     initializer 'load simplecov for tests' do |config|
-      if ::Rails.env.test?
+      if ::Rails.env.test? && ENV['JT_RAKE']
         simplecov_config = 'config/simplecov.rb'
         require_relative simplecov_config
       end
@@ -86,7 +86,13 @@ module JefferiesTube
 
     rake_tasks do
       Rake.application['default'].clear
-      task default: :spec
+      require 'rspec/core/rake_task'
+      task :jtspec do
+        ENV['JT_RAKE'] = "true"
+        Rake::Task["spec"].invoke
+      end
+      task default: :jtspec
+
       require 'rubocop/rake_task'
 
       if Object.const_defined?("DEBUGGER__")
