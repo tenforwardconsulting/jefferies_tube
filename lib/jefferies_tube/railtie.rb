@@ -85,14 +85,15 @@ module JefferiesTube
     end
 
     rake_tasks do
-      Rake.application['default'].clear
-      require 'rspec/core/rake_task'
-      task :jtspec do
-        ENV['JT_RAKE'] = "true"
-        Rake::Task["spec"].invoke
+      task(:default).clear
+      if defined?(Rspec)
+        require 'rspec/core/rake_task'
+        task :jtspec do
+          ENV['JT_RAKE'] = "true"
+          Rake::Task["spec"].invoke
+        end
+        task default: :jtspec
       end
-      task default: :jtspec
-
       require 'rubocop/rake_task'
 
       if Object.const_defined?("DEBUGGER__")
