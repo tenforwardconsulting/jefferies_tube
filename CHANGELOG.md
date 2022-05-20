@@ -6,6 +6,8 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+## 1.6.3.2
+  Bugfix: Typo :(
 ## 1.6.3.1
   Bugfix: Check if Rspec is defined
 ## 1.6.3

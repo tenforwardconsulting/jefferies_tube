@@ -86,7 +86,7 @@ module JefferiesTube
 
     rake_tasks do
       task(:default).clear
-      if defined?(Rspec)
+      if defined?(RSpec)
         require 'rspec/core/rake_task'
         task :jtspec do
           ENV['JT_RAKE'] = "true"
