@@ -6,6 +6,15 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+## 1.6.4
+  New Rubocop Rules!
+  * Style/IndentationConsistency: Makes sure indentiation is correct
+  * Layout/EmptyLines: Max of one empty line in a row
+  * Rails/HasManyOrHasOneDependent: All has_many associations must have a depedent option
+  * Rails/ActionFilter: Enforces use of \_action instead of \_filter in controllers
+  * Rails/AddColumnIndex: Fixes use of index: true on add_column which does nothing
+  * Rails/AfterCommitOverride: Don't define 2 after_commit since they override
+  * Rails/CreateTableWithTimestamps: All tables should have timestamps columns
 ## 1.6.3.2
   Bugfix: Typo :(
 ## 1.6.3.1
