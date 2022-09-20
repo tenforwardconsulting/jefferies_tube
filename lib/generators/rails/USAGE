@@ -1,0 +1,9 @@
+Description:
+    Generates an Architecture Design Record in docs/adr.
+    Based on https://github.com/pmerson/ADR-template
+
+Example:
+    rails generate adr "Use microservices for payment callbacks"
+
+    This will create:
+        doc/adr/001-use-microservices-for-payment-callbacks.md

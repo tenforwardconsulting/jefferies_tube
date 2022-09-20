@@ -4,9 +4,12 @@ require 'jefferies_tube/coverage'
 require 'rails'
 
 module JefferiesTube
-
   class Railtie < ::Rails::Railtie
     railtie_name :jefferies_tube
+
+    # generators do
+    #   require 'jefferies_tube/generators/adr/adr_generator.rb'
+    # end
 
     console do
       ActiveRecord::Base.connection
