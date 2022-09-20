@@ -5,7 +5,14 @@ This is a [changelog](https://keepachangelog.com/en/1.0.0/).
 This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
+## 1.6.5
+  * Add Application Decision Record generator
 
+  * More Rubocop rules regarding whitespace and indentation consistency
+    * Layout/EmptyLineBetweenDefs
+    * Layout/EmptyLinesAroundArguments
+    * Layout/EmptyLinesAroundBlockBody
+    * Layout/IndentationConsistency
 ## 1.6.4
   New Rubocop Rules!
   * Style/IndentationConsistency: Makes sure indentiation is correct
