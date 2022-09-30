@@ -5,10 +5,20 @@ AllCops:
   SuggestExtensions: false
 Style/IndentationConsistency:
   Enabled: true
+
 Layout/LineLength:
   Max: 200
 Layout/EmptyLines:
   Enabled: true
+Layout/EmptyLineBetweenDefs:
+  Enabled: true
+Layout/EmptyLinesAroundArguments:
+  Enabled: true
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: true
+Layout/IndentationConsistency:
+  Enabled: true
+
 Rails/HasManyOrHasOneDependent:
   Enabled: true
 Rails/ActionFilter:

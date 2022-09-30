@@ -4,7 +4,6 @@ require 'jefferies_tube/coverage'
 require 'rails'
 
 module JefferiesTube
-
   class Railtie < ::Rails::Railtie
     railtie_name :jefferies_tube
 
