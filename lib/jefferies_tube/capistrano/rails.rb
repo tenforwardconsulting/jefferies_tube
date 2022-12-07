@@ -52,8 +52,8 @@ namespace :rails do
 
   def run_interactively(command)
     port = host.port || 22
-    puts "ssh #{host.user}@#{host} -p #{port} -t 'cd #{deploy_to}/current; #{command}'"
-    exec "ssh #{host.user}@#{host} -p #{port} -t 'cd #{deploy_to}/current; #{command}'"
+    puts %Q(ssh #{host.user}@#{host} -p #{port} -t '/bin/bash -l -c "cd #{deploy_to}/current; #{command}"')
+    exec %Q(ssh #{host.user}@#{host} -p #{port} -t '/bin/bash -l -c "cd #{deploy_to}/current; #{command}"')
   end
 
   def rails_env
