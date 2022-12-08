@@ -5,6 +5,10 @@ This is a [changelog](https://keepachangelog.com/en/1.0.0/).
 This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
+
+## 1.6.6
+  * Fix to paths for remote cap tasks that caused execjs to fail in some circumstances
+
 ## 1.6.5
   * Add Application Decision Record generator
 
