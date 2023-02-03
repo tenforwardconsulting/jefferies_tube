@@ -3,8 +3,8 @@ require: rubocop-rails
 AllCops:
   DisabledByDefault: true
   SuggestExtensions: false
-Style/IndentationConsistency:
-  Enabled: true
+  Exclude:
+    - "vendor/**/*"
 
 Layout/LineLength:
   Max: 200
