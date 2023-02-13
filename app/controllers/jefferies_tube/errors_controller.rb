@@ -46,16 +46,16 @@ class JefferiesTube::ErrorsController < ApplicationController
 
   def has_app_layout?
     if Gem::Version.new(Rails.version) >= Gem::Version.new("5")
-      !!self.send(:_layout, [request.format.to_sym])
+      !!self.send(:_layout, lookup_context, [request.format.to_sym])
     else
       # boolean based on if there is a default layout for the current mime type
-      !!self.send(:_layout)
+      !!self.send(:_layout, lookup_context)
     end
   end
 
   def html_layout
     if Gem::Version.new(Rails.version) >= Gem::Version.new("5")
-      self.send(:_layout, ["html"]).virtual_path
+      self.send(:_layout,, lookup_context, ["html"]).virtual_path
     else
       # boolean based on if there is a default layout for the current mime type
       "application"
