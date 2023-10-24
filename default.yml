@@ -5,7 +5,10 @@ AllCops:
   SuggestExtensions: false
   Exclude:
     - "vendor/**/*"
+    - 'tmp/**/*'
 
+Lint/Syntax:
+  Enabled: true
 Layout/LineLength:
   Max: 200
 Layout/EmptyLines:
