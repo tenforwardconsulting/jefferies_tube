@@ -111,9 +111,12 @@ before 'deploy', 'deploy:create_tag'
 
 By default jefferies_tube will raise an error and stop if it detects any vulnerabilities is your installed gems. If you need to deploy anyway even with vulnerabilities you can do `I_KNOW_GEMS_ARE_INSECURE=true cap <environment> deploy`.
 
-To ignore specific CVE's when running bundler-audit, inside `config/deploy.rb`:
-```ruby
-set :bundler_audit_ignore, ["CVE-1234-5678"]
+To ignore specific CVE's when running bundler-audit, add a .bundler-audit.yml file to your projets root directory, and ignore vulnerabilities like so:
+
+```yml
+---
+ignore:
+  - CVE-2024-6484
 ```
 
 ### Enable/Disable Maintence Mode
