@@ -77,7 +77,19 @@ module JefferiesTube
     end
 
     initializer 'load simplecov for tests' do |config|
-      if ::Rails.env.test? && ENV['JT_RAKE']
+      existing_spec_helper = File.join(::Rails.root.join "spec", "spec_helper.rb" )
+      if !(File.open(existing_spec_helper, &:readline) == "ENV['JT_RSPEC'] = 'true'\n")
+        content = File.read(existing_spec_helper)
+        File.open(existing_spec_helper, "w") do |line|
+          line.puts "ENV['JT_RSPEC'] = 'true'"
+          line.puts "# ENV['JT_RSPEC'] = 'true' is required for correctly running SimpleCov via the jefferies_tube default rake task"
+          line.puts "\n"
+          line.puts content
+        end
+      end
+
+      if ::Rails.env.test? && ENV['JT_RSPEC'] == 'true'
+        ENV['JT_RSPEC'] = nil
         simplecov_config = 'config/simplecov.rb'
         require_relative simplecov_config
       end
@@ -88,7 +100,6 @@ module JefferiesTube
       if defined?(RSpec)
         require 'rspec/core/rake_task'
         task :jtspec do
-          ENV['JT_RAKE'] = "true"
           Rake::Task["spec"].invoke
         end
         task default: :jtspec
