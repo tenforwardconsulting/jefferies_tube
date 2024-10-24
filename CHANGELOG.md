@@ -6,6 +6,10 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+## 1.6.9
+  * Refactor checking for JT_RSPEC environment variable when starting simplecov; prepends env var to rails application's spec_helper if
+    that line does not already exist.
+
 ## 1.6.8
   * Add support for ignoring CVEs in .bundler-audit.yml, remove support for setting ignored CVEs in deploy.rb via `:bundler_audit_ignore`
 
