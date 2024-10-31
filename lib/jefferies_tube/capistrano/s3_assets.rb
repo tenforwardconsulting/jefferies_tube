@@ -4,6 +4,9 @@ task :upload_assets_to_s3 do
       appyml_text = capture :cat, "#{deploy_to}/shared/config/application.yml"
       appyml = YAML.load appyml_text
       execute "AWS_ACCESS_KEY_ID=#{appyml['AWS_ACCESS_KEY_ID']}", "AWS_SECRET_ACCESS_KEY=#{appyml["AWS_SECRET_ACCESS_KEY"]}", 'aws', 's3', 'sync', 'public/assets/', "#{fetch(:s3_destination)}/assets"
+      if Dir.exists?('public/static_assets')
+        execute "AWS_ACCESS_KEY_ID=#{appyml['AWS_ACCESS_KEY_ID']}", "AWS_SECRET_ACCESS_KEY=#{appyml["AWS_SECRET_ACCESS_KEY"]}", 'aws', 's3', 'sync', 'public/static_assets/', "#{fetch(:s3_destination)}/static_assets"
+      end
       if Dir.exists?('public/packs')
         execute "AWS_ACCESS_KEY_ID=#{appyml['AWS_ACCESS_KEY_ID']}", "AWS_SECRET_ACCESS_KEY=#{appyml["AWS_SECRET_ACCESS_KEY"]}", 'aws', 's3', 'sync', 'public/packs/', "#{fetch(:s3_destination)}/packs"
       end
