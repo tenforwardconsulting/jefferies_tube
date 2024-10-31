@@ -6,6 +6,9 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+## 1.7.0
+  * Sync static_assets as part of upload_assets_to_s3
+
 ## 1.6.9
   * Refactor checking for JT_RSPEC environment variable when starting simplecov; prepends env var to rails application's spec_helper if
     that line does not already exist.
