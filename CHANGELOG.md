@@ -6,6 +6,9 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+## 1.7.1
+  * Bugfix: change `exists?` to `exist?` and check for `existing_spec_helper` file
+
 ## 1.7.0
   * Sync static_assets as part of upload_assets_to_s3
 

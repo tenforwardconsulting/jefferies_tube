@@ -32,7 +32,7 @@ module JefferiesTube
     end
 
     initializer "jefferies_tube.add_maintenance_middleware" do |config|
-      if File.exists? "tmp/maintenance.txt"
+      if File.exist? "tmp/maintenance.txt"
         require 'jefferies_tube/rack/maintenance'
         config.middleware.use 'JefferiesTube::Rack::Maintenance'
       end
@@ -45,7 +45,7 @@ module JefferiesTube
     end
 
     initializer "fix spring + figaro" do |config|
-      if defined?(Spring) && File.exists?("config/application.yml")
+      if defined?(Spring) && File.exist?("config/application.yml")
         require 'spring/watcher'
         Spring.watch "config/application.yml"
       end
@@ -78,7 +78,7 @@ module JefferiesTube
 
     initializer 'load simplecov for tests' do |config|
       existing_spec_helper = File.join(::Rails.root.join "spec", "spec_helper.rb" )
-      if !(File.open(existing_spec_helper, &:readline) == "ENV['JT_RSPEC'] = 'true'\n")
+      if File.exist?(existing_spec_helper) && !(File.open(existing_spec_helper, &:readline) == "ENV['JT_RSPEC'] = 'true'\n")
         content = File.read(existing_spec_helper)
         File.open(existing_spec_helper, "w") do |line|
           line.puts "ENV['JT_RSPEC'] = 'true'"
