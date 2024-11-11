@@ -21,6 +21,16 @@ Layout/EmptyLinesAroundBlockBody:
   Enabled: true
 Layout/IndentationConsistency:
   Enabled: true
+Layout/BlockAlignment:
+  Enabled: true
+Layout/ArgumentAlignment:
+  Enabled: true
+  EnforcedStyle: with_fixed_indentation
+Layout/FirstHashElementIndentation:
+  Enabled: true
+  EnforcedStyle: consistent
+Layout/HashAlignment:
+  Enabled: true
 
 Rails/HasManyOrHasOneDependent:
   Enabled: true
