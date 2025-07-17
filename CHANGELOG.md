@@ -6,6 +6,9 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+## 1.7.3
+  * Bugfix: change `exists?` to `exist?` in `s3_assets.rb`
+
 ## 1.7.2
   * Bugfix: update 404 and 500 pages to have .html.erb variants, not just .haml
 
