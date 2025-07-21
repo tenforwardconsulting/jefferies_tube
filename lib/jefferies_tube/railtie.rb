@@ -103,8 +103,17 @@ module JefferiesTube
           Rake::Task["spec"].invoke
         end
         task default: :jtspec
-      else
-        task default: ["test", "test:system"]
+      end
+
+      if defined?(Minitest)
+        task :jtspec do
+          Rake::Task["test"].invoke
+
+          if Rake::Task.task_defined?("test:system")
+            Rake::Task["test:system"].invoke
+          end
+        end
+        task default: :jtspec
       end
 
       require 'rubocop/rake_task'
