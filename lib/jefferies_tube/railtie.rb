@@ -104,6 +104,18 @@ module JefferiesTube
         end
         task default: :jtspec
       end
+
+      if defined?(Minitest)
+        task :jtspec do
+          Rake::Task["test"].invoke
+
+          if Rake::Task.task_defined?("test:system")
+            Rake::Task["test:system"].invoke
+          end
+        end
+        task default: :jtspec
+      end
+
       require 'rubocop/rake_task'
 
       if Object.const_defined?("DEBUGGER__")
