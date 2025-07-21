@@ -6,6 +6,9 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+## 1.7.4
+  * If RSpec is not defined, run `rails test` and `rails test:system` in default rake task
+
 ## 1.7.3
   * Bugfix: change `exists?` to `exist?` in `s3_assets.rb`
 

@@ -103,7 +103,10 @@ module JefferiesTube
           Rake::Task["spec"].invoke
         end
         task default: :jtspec
+      else
+        task default: ["test", "test:system"]
       end
+
       require 'rubocop/rake_task'
 
       if Object.const_defined?("DEBUGGER__")
