@@ -18,15 +18,17 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "awesome_print"
-  spec.add_development_dependency "bundler"
+  spec.required_ruby_version = '>= 3.2'
+
+  spec.add_development_dependency "awesome_print", '~> 1.9.2'
+  spec.add_development_dependency "bundler", '~> 2.3.7'
   spec.add_development_dependency "pry", '~> 0.13'
-  spec.add_development_dependency "rake"
+  spec.add_development_dependency "rake", '~> 13.0.6'
   spec.add_development_dependency "rspec", '~> 3.0'
 
   spec.add_dependency "bundler-audit", "~> 0.9"
   spec.add_dependency "pry", '~> 0.13'
   spec.add_dependency 'rubocop', '~> 1.26'
   spec.add_dependency 'rubocop-rails', '~> 2.14.2'
-  spec.add_dependency 'simplecov'
+  spec.add_dependency 'simplecov', '~> 0.22.0'
 end
