@@ -103,9 +103,7 @@ module JefferiesTube
           Rake::Task["spec"].invoke
         end
         task default: :jtspec
-      end
-
-      if defined?(Minitest)
+      elsif defined?(Minitest)
         task :jtspec do
           Rake::Task["test"].invoke
 
