@@ -6,6 +6,9 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+## 1.7.6
+  * Set rails conf to eager load when running simplecov
+
 ## 1.7.5
   * If RSpec is not defined, check for minitest definition as elsif, and *then* run `rails test` and `rails test:system` in default rake task
 

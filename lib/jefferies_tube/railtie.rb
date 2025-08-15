@@ -89,6 +89,7 @@ module JefferiesTube
       end
 
       if ::Rails.env.test? && ENV['JT_RSPEC'] == 'true'
+        ::Rails.configuration.eager_load = true
         ENV['JT_RSPEC'] = nil
         simplecov_config = 'config/simplecov.rb'
         require_relative simplecov_config
