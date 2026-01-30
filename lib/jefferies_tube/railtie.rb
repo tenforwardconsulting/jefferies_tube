@@ -1,6 +1,7 @@
 require 'jefferies_tube'
 require 'jefferies_tube/console'
 require 'jefferies_tube/coverage'
+require 'jefferies_tube/invalid_mime_type_handler'
 require 'rails'
 
 module JefferiesTube
@@ -94,6 +95,10 @@ module JefferiesTube
         simplecov_config = 'config/simplecov.rb'
         require_relative simplecov_config
       end
+    end
+
+    initializer 'handle invalid mime types' do |config|
+      config.middleware.insert_before Rack::Head, JefferiesTube::InvalidMimeTypeHandler
     end
 
     rake_tasks do
