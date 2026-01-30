@@ -6,6 +6,9 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+## 1.7.8
+  * Update middleware to rescue from more invalid requests
+
 ## 1.7.7
   * Add middleware to rescue from mime type errors to avoid spamming it as an error
 
