@@ -1,7 +1,7 @@
 require 'jefferies_tube'
 require 'jefferies_tube/console'
 require 'jefferies_tube/coverage'
-require 'jefferies_tube/invalid_mime_type_handler'
+require 'jefferies_tube/invalid_request_handler'
 require 'rails'
 
 module JefferiesTube
@@ -98,7 +98,7 @@ module JefferiesTube
     end
 
     initializer 'handle invalid mime types' do |config|
-      config.middleware.insert_before Rack::Head, JefferiesTube::InvalidMimeTypeHandler
+      config.middleware.insert_before Rack::Head, JefferiesTube::InvaildRequestHandler
     end
 
     rake_tasks do
