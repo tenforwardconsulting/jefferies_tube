@@ -6,6 +6,9 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+## 1.7.7
+  * Add middleware to rescue from mime type errors to avoid spamming it as an error
+
 ## 1.7.6
   * Set rails conf to eager load when running simplecov
 
