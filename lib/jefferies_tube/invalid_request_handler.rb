@@ -1,3 +1,5 @@
+# The error types rescued here are mirrored in the NewRelic ignore_error_filter
+# in railtie.rb. If you update the rescue logic here, update the filter there too.
 class JefferiesTube::InvaildRequestHandler
   def initialize(app)
     @app = app

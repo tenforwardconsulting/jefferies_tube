@@ -101,6 +101,35 @@ module JefferiesTube
       config.middleware.insert_before Rack::Head, JefferiesTube::InvaildRequestHandler
     end
 
+    # This filter must match the error types rescued in InvaildRequestHandler.
+    # If you update the rescue logic there, update the cases here too.
+    config.after_initialize do
+      if defined?(NewRelic::Agent) && NewRelic::Agent.respond_to?(:ignore_error_filter)
+        existing_filter = NewRelic::Agent::ErrorCollector.ignore_error_filter
+        puts "[JefferiesTube] Configuring NewRelic ignore_error_filter for invalid request errors"
+
+        NewRelic::Agent.ignore_error_filter do |error|
+          keep = case error
+          when ActionDispatch::Http::MimeNegotiation::InvalidType
+            false
+          when ArgumentError
+            !(error.message =~ /invalid byte sequence in UTF-8/ ||
+              error.message =~ /invalid %-encoding/)
+          when ActionController::BadRequest
+            !(error.message =~ /invalid %-encoding/ ||
+              error.message =~ /Invalid encoding for parameter/)
+          else
+            true
+          end
+
+          keep && (existing_filter.nil? || existing_filter.call(error))
+        end
+      elsif defined?(NewRelic::Agent)
+        puts "[JefferiesTube] NewRelic::Agent.ignore_error_filter is not available. " \
+          "Invalid request errors may still be reported to NewRelic."
+      end
+    end
+
     rake_tasks do
       task(:default).clear
       if defined?(RSpec)

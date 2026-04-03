@@ -6,6 +6,9 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+## 1.7.9
+  * Configure NewRelic to ignore invalid request errors caught by InvaildRequestHandler middleware
+
 ## 1.7.8
   * Update middleware to rescue from more invalid requests
 
