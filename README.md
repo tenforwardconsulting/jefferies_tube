@@ -241,3 +241,48 @@ Our Rubocop rules are built from the ground up to ensure the rules are all "actu
   [semver](https://semver.org/)).
 - Update `CHANGELOG.md` and move everything in 'Unreleased' to a new section for the new version.
 - Tag the final commit in that release.
+
+## Supporting parallel_tests
+
+When the `parallel_tests` gem is in your bundle, JefferiesTube automatically runs specs in parallel via the default `rake` task. Coverage is collected per-worker and collated at the end.
+
+### Setup
+
+Add `parallel_tests` to your Gemfile:
+
+```ruby
+group :development, :test do
+  gem 'parallel_tests'
+end
+```
+
+Update `config/database.yml` to use numbered test databases:
+
+```yaml
+test:
+  <<: *default
+  database: my_app_test<%= ENV['TEST_ENV_NUMBER'] %>
+```
+
+This creates databases like `my_app_test`, `my_app_test2`, `my_app_test3`, etc. JefferiesTube handles creating and preparing these automatically.
+
+Then just run `rake` — parallel tests, coverage, and rubocop will all run automatically.
+
+### Troubleshooting
+
+**Shared examples not found:** If you define shared examples in spec files (e.g. `spec/models/concerns/`), other parallel workers won't have them loaded. Ensure they're required in `rails_helper.rb`:
+
+```ruby
+Dir[Rails.root.join('spec', 'models', 'concerns', '**', '*.rb')].sort.each { |f| require f }
+```
+
+**Capybara port conflicts:** If Capybara is configured with a hardcoded port, multiple workers will collide. Remove `Capybara.app_host` and `Capybara.server_port` settings and let Capybara auto-assign ports:
+
+```ruby
+# Remove these lines:
+# Capybara.app_host = "http://localhost:3333"
+# Capybara.server_port = "3333"
+
+# Keep only:
+Capybara.server_host = "localhost"
+```
