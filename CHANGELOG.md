@@ -6,6 +6,11 @@ This project attempts to follow [semantic versioning](https://semver.org/)
 
 ## Unreleased
 
+## 1.8.0
+  * Add parallel_tests support: when parallel_tests gem is present, default rake task automatically runs specs in parallel with collated SimpleCov coverage
+  * Extract coverage reporting into `JefferiesTube::Coverage.print_report`
+  * Suppress NewRelic configuration log message in test environment
+
 ## 1.7.9
   * Configure NewRelic to ignore invalid request errors caught by InvaildRequestHandler middleware
 
