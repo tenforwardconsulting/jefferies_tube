@@ -89,7 +89,11 @@ module JefferiesTube
         end
       end
 
-      if ::Rails.env.test? && ENV['JT_RSPEC'] == 'true'
+      if ::Rails.env.test? && ENV['TEST_ENV_NUMBER'] && ENV['JT_RSPEC'] == 'true'
+        ::Rails.configuration.eager_load = true
+        ENV['JT_RSPEC'] = nil
+        require_relative 'config/simplecov_parallel'
+      elsif ::Rails.env.test? && ENV['JT_RSPEC'] == 'true'
         ::Rails.configuration.eager_load = true
         ENV['JT_RSPEC'] = nil
         simplecov_config = 'config/simplecov.rb'
@@ -106,7 +110,7 @@ module JefferiesTube
     config.after_initialize do
       if defined?(NewRelic::Agent) && NewRelic::Agent.respond_to?(:ignore_error_filter)
         existing_filter = NewRelic::Agent::ErrorCollector.ignore_error_filter
-        puts "[JefferiesTube] Configuring NewRelic ignore_error_filter for invalid request errors"
+        puts "[JefferiesTube] Configuring NewRelic ignore_error_filter for invalid request errors" unless ::Rails.env.test?
 
         NewRelic::Agent.ignore_error_filter do |error|
           keep = case error

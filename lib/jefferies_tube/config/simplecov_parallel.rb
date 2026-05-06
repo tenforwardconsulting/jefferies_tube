@@ -1,10 +1,11 @@
 require 'simplecov'
+
+test_env = ENV['TEST_ENV_NUMBER'].to_s.empty? ? '1' : ENV['TEST_ENV_NUMBER']
+SimpleCov.command_name "rspec_#{test_env}"
 SimpleCov.start do
   add_filter '/test/'
   add_filter '/config/'
-
   formatter SimpleCov::Formatter::HTMLFormatter
-
   add_group 'Controllers' do |src_file|
     src_file.filename.include?('app/controllers') && !src_file.filename.include?('api')
   end
@@ -19,11 +20,4 @@ SimpleCov.start do
   add_group 'Mailers', 'app/mailers'
   add_group 'Libraries', 'lib'
   add_group 'Plugins', 'vendor/plugins'
-end
-SimpleCov.at_exit do
-  SimpleCov.result.format!
-  overall_failed = JefferiesTube::Coverage.print_report(SimpleCov.result)
-  if overall_failed
-    exit(SimpleCov::ExitCodes::MINIMUM_COVERAGE)
-  end
 end
