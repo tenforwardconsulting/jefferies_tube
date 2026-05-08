@@ -23,6 +23,27 @@ module JefferiesTube::Coverage
     self.default_converage.merge(@required_coverage || {})
   end
 
+  def self.configure(config)
+    config.add_filter '/test/'
+    config.add_filter '/spec/'
+    config.add_filter '/config/'
+    config.formatter SimpleCov::Formatter::HTMLFormatter
+    config.add_group 'Controllers' do |src_file|
+      src_file.filename.include?('app/controllers') && !src_file.filename.include?('api')
+    end
+    config.add_group 'API Controllers' do |src_file|
+      src_file.filename.include?('app/controllers') && src_file.filename.include?('api')
+    end
+    config.add_group 'Models', 'app/models'
+    config.add_group 'Services', 'app/services'
+    config.add_group 'Helpers', 'app/helpers'
+    config.add_group 'Policies', 'app/policies'
+    config.add_group 'Jobs', 'app/jobs'
+    config.add_group 'Mailers', 'app/mailers'
+    config.add_group 'Libraries', 'lib'
+    config.add_group 'Plugins', 'vendor/plugins'
+  end
+
   def self.print_report(result)
     output = "=====================Test Coverage=====================\n"
     output << "Group            Files       Current / Required (Ideal)\n"

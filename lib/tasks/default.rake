@@ -1,3 +1,33 @@
+task(:default).clear
+
+if Gem.loaded_specs.key?('rspec-core')
+  require 'rspec/core/rake_task'
+  task :jtspec do
+    Rake::Task["spec"].invoke
+  end
+  task default: :jtspec
+elsif Gem.loaded_specs.key?('minitest')
+  task :jtspec do
+    Rake::Task["test"].invoke
+    if Rake::Task.task_defined?("test:system")
+      Rake::Task["test:system"].invoke
+    end
+  end
+  task default: :jtspec
+end
+
+require 'rubocop/rake_task'
+
+if Object.const_defined?("DEBUGGER__")
+  DEBUGGER__.class_eval do
+    def self.warn(msg)
+    end
+  end
+end
+
+RuboCop::RakeTask.new(:rubocop)
+task default: :rubocop
+
 if Gem.loaded_specs.key?('parallel_tests')
   Rake::Task[:default].clear if Rake::Task.task_defined?(:default)
   Rake::Task[:jtspec].clear if Rake::Task.task_defined?(:jtspec)
@@ -5,7 +35,9 @@ if Gem.loaded_specs.key?('parallel_tests')
   task :jtspec do
     Rake::Task["parallel:clear_coverage"].invoke
     Rake::Task["parallel:prepare"].invoke
+    ENV['JT_RSPEC'] = 'true'
     Rake::Task["parallel:spec"].invoke
+    ENV['JT_RSPEC'] = nil
     Rake::Task["parallel:collate_coverage"].invoke
   end
 
@@ -21,24 +53,8 @@ if Gem.loaded_specs.key?('parallel_tests')
     desc "Collate SimpleCov results from parallel test runs"
     task collate_coverage: :environment do
       require 'simplecov'
-      SimpleCov.collate Dir["coverage/.resultset.json"] do
-        formatter SimpleCov::Formatter::HTMLFormatter
-        add_filter '/test/'
-        add_filter '/config/'
-        add_group 'Controllers' do |src_file|
-          src_file.filename.include?('app/controllers') && !src_file.filename.include?('api')
-        end
-        add_group 'API Controllers' do |src_file|
-          src_file.filename.include?('app/controllers') && src_file.filename.include?('api')
-        end
-        add_group 'Models', 'app/models'
-        add_group 'Services', 'app/services'
-        add_group 'Helpers', 'app/helpers'
-        add_group 'Policies', 'app/policies'
-        add_group 'Jobs', 'app/jobs'
-        add_group 'Mailers', 'app/mailers'
-        add_group 'Libraries', 'lib'
-        add_group 'Plugins', 'vendor/plugins'
+      SimpleCov.collate Dir["coverage/worker_*/.resultset.json"] do
+        JefferiesTube::Coverage.configure(self)
       end
 
       overall_failed = JefferiesTube::Coverage.print_report(SimpleCov.result)
