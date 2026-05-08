@@ -89,7 +89,11 @@ module JefferiesTube
         end
       end
 
-      if ::Rails.env.test? && ENV['JT_RSPEC'] == 'true'
+      if ::Rails.env.test? && ENV['TEST_ENV_NUMBER'] && ENV['JT_RSPEC'] == 'true'
+        ::Rails.configuration.eager_load = true
+        ENV['JT_RSPEC'] = nil
+        require_relative 'config/simplecov_parallel'
+      elsif ::Rails.env.test? && ENV['JT_RSPEC'] == 'true'
         ::Rails.configuration.eager_load = true
         ENV['JT_RSPEC'] = nil
         simplecov_config = 'config/simplecov.rb'
@@ -106,7 +110,7 @@ module JefferiesTube
     config.after_initialize do
       if defined?(NewRelic::Agent) && NewRelic::Agent.respond_to?(:ignore_error_filter)
         existing_filter = NewRelic::Agent::ErrorCollector.ignore_error_filter
-        puts "[JefferiesTube] Configuring NewRelic ignore_error_filter for invalid request errors"
+        puts "[JefferiesTube] Configuring NewRelic ignore_error_filter for invalid request errors" unless ::Rails.env.test?
 
         NewRelic::Agent.ignore_error_filter do |error|
           keep = case error
@@ -128,38 +132,6 @@ module JefferiesTube
         puts "[JefferiesTube] NewRelic::Agent.ignore_error_filter is not available. " \
           "Invalid request errors may still be reported to NewRelic."
       end
-    end
-
-    rake_tasks do
-      task(:default).clear
-      if defined?(RSpec)
-        require 'rspec/core/rake_task'
-        task :jtspec do
-          Rake::Task["spec"].invoke
-        end
-        task default: :jtspec
-      elsif defined?(Minitest)
-        task :jtspec do
-          Rake::Task["test"].invoke
-
-          if Rake::Task.task_defined?("test:system")
-            Rake::Task["test:system"].invoke
-          end
-        end
-        task default: :jtspec
-      end
-
-      require 'rubocop/rake_task'
-
-      if Object.const_defined?("DEBUGGER__")
-        DEBUGGER__.class_eval do
-          def self.warn(msg)
-          end
-        end
-      end
-
-      RuboCop::RakeTask.new(:rubocop)
-      task default: :rubocop
     end
   end
 end
