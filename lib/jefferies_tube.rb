@@ -1,4 +1,5 @@
 require 'jefferies_tube/version'
+require 'jefferies_tube/layout_args'
 require 'jefferies_tube/engine' if defined?(Rails)
 
 module JefferiesTube
@@ -21,12 +22,7 @@ module JefferiesTube
     def initialize
       if defined?(Rails)
         @environment = ::Rails.env.downcase || nil
-        @prompt_name =
-          if ::Rails::VERSION::MAJOR >= 6
-            ::Rails.application.class.module_parent_name || nil
-          else
-            ::Rails.application.class.parent_name || nil
-          end
+        @prompt_name = ::Rails.application.class.module_parent_name || nil
       else
         @environment = "development"
         @prompt_name = "JefferiesTube"

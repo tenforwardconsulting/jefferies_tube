@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", '~> 13.0.6'
   spec.add_development_dependency "rspec", '~> 3.0'
 
+  spec.add_dependency 'rails', '>= 6.1.7.9'
   spec.add_dependency "bundler-audit", "~> 0.9"
   spec.add_dependency "pry", '~> 0.13'
   spec.add_dependency 'rubocop', '~> 1.26'
