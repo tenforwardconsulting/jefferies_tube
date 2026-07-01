@@ -38,10 +38,6 @@ class JefferiesTube::ErrorsController < ApplicationController
     !!resolve_layout([request.format.to_sym])
   end
 
-  # Invokes the private `_layout` for the given formats. Its signature has
-  # changed across Rails versions (`(formats, keys)` in 6.1–7,
-  # `(lookup_context, formats, keys)` in 8+), so build the argument list by
-  # matching the method's actual parameter names instead of hardcoding a count.
   def resolve_layout(formats)
     args = JefferiesTube::LayoutArgs.for(
       self.method(:_layout).parameters,
