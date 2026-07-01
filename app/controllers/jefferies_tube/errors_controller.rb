@@ -1,20 +1,10 @@
 class JefferiesTube::ErrorsController < ApplicationController
-  if Rails.version.start_with? "3"
-    before_filter :disable_pundit
-    skip_before_filter :verify_authenticity_token
-  else
-    before_action :disable_pundit
-    skip_before_action :verify_authenticity_token
-  end
+  before_action :disable_pundit
+  skip_before_action :verify_authenticity_token
 
   def render_404
     log_404
     render_error_page 404
-  end
-
-  def additional_information
-    # TODO not implemented yet
-    render text: "Thanks!", layout: has_app_layout?
   end
 
   private
@@ -45,20 +35,15 @@ class JefferiesTube::ErrorsController < ApplicationController
   end
 
   def has_app_layout?
-    if Gem::Version.new(Rails.version) >= Gem::Version.new("5")
-      !!self.send(:_layout, [request.format.to_sym])
-    else
-      # boolean based on if there is a default layout for the current mime type
-      !!self.send(:_layout)
-    end
+    !!resolve_layout([request.format.to_sym])
   end
 
-  def html_layout
-    if Gem::Version.new(Rails.version) >= Gem::Version.new("5")
-      self.send(:_layout, ["html"]).virtual_path
-    else
-      # boolean based on if there is a default layout for the current mime type
-      "application"
-    end
+  def resolve_layout(formats)
+    args = JefferiesTube::LayoutArgs.for(
+      self.method(:_layout).parameters,
+      lookup_context: lookup_context,
+      formats: formats
+    )
+    self.send(:_layout, *args)
   end
 end
