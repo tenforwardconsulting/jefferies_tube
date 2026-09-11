@@ -10,6 +10,8 @@ This project attempts to follow [semantic versioning](https://semver.org/)
   * Bugfix: fix `ArgumentError` raised by `ErrorsController` on every rendered error page under Rails 8. `_layout`'s arity changed across Rails versions, so build its arguments from the method's actual parameters instead of hardcoding a count (supports Rails 6.1–8+).
   * Declare a minimum `rails` dependency of `>= 6.1.7.9`.
   * Remove dead code: the Rails 3 `before_filter` branch, the unused `html_layout` and `additional_information` methods, and a pre-Rails-6 `prompt_name` fallback.
+  * Remove 404 with referrer rollbar warning
+  * Fix JSON format 404
 
 ## 1.7.9
   * Configure NewRelic to ignore invalid request errors caught by InvaildRequestHandler middleware

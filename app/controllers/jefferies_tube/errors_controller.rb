@@ -3,7 +3,6 @@ class JefferiesTube::ErrorsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def render_404
-    log_404
     render_error_page 404
   end
 
@@ -19,12 +18,6 @@ class JefferiesTube::ErrorsController < ApplicationController
           render template: "/errors/#{code}", layout: false, status: code
         end
       end
-    end
-  end
-
-  def log_404
-    if defined?(Rollbar) && request.referrer.present?
-      Rollbar.warn("Got 404 with referrer", referrer: request.referrer, current_path: request.path)
     end
   end
 
